@@ -1,6 +1,6 @@
 # ProcesMaat website
 
-Nederlandstalige B2B-landingspagina voor maatwerksoftware, systeemkoppelingen, dashboards en automatisering. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten; de agenda is een afzonderlijke secundaire route.
+Nederlandstalige B2B-landingspagina voor maatwerksoftware, systeemkoppelingen, dashboards en automatisering. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten; 
 
 ## Lokaal starten
 
