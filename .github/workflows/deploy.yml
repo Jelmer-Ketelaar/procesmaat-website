@@ -1,0 +1,55 @@
+name: Deploy
+
+# Elke push op main gaat direct live. Geen polling, geen laptop nodig.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Nooit twee deploys tegelijk; een nieuwere push wacht op de vorige.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      # Kapotte code hoort niet live te komen.
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+
+      - name: Build voor productie
+        env:
+          NEXT_PUBLIC_DEPLOYMENT_ENV: production
+          NEXT_PUBLIC_SITE_URL: https://www.procesmaatsoftware.nl
+          NEXT_PUBLIC_SITE_EMAIL: info@procesmaatsoftware.nl
+        run: npm run build
+
+      - name: Uitrollen naar Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy -c dist/server/wrangler.json
+
+      # Runtime-waarden. De Worker leest deze bij elke aanvraag, niet tijdens de build.
+      # Blijven staan tussen deploys; opnieuw zetten is onschadelijk.
+      - name: Runtime-configuratie bijwerken
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          LEAD_WEBHOOK_URL: ${{ secrets.LEAD_WEBHOOK_URL }}
+        run: |
+          printf '%s' "$LEAD_WEBHOOK_URL" | npx wrangler secret put LEAD_WEBHOOK_URL -c dist/server/wrangler.json
+          printf '%s' 'production' | npx wrangler secret put APP_ENV -c dist/server/wrangler.json
