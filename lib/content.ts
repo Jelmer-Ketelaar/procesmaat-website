@@ -55,7 +55,7 @@ export const faqs = [
   },
   {
     question: "Hoe lang duurt een project?",
-    answer: "Een afgebakend prototype kan vaak in enkele weken worden beoordeeld. Een traject met meerdere systemen of veel uitzonderingen duurt langer. We geven pas een planning nadat het proces en de technische afhankelijkheden duidelijk zijn.",
+    answer: "Dat hangt af van de afbakening, koppelingen en uitzonderingen. We noemen pas een planning nadat het proces en de technische afhankelijkheden zijn onderzocht; zo voorkomen we een vroege belofte die later niet houdbaar blijkt.",
   },
   {
     question: "Is AI altijd nodig?",
@@ -63,6 +63,18 @@ export const faqs = [
   },
   {
     question: "Wat gebeurt er tijdens de gratis scan?",
-    answer: "In 30 minuten lopen we één terugkerend proces door. We zoeken waar tijd en overdrachtsmomenten zitten, bespreken haalbaarheid en benoemen eerlijk wat wel en niet zinvol lijkt. Je zit direct met de bouwer aan tafel.",
+    answer: "In 30 minuten bespreken we één terugkerend proces, de belangrijkste stappen en uitzonderingen. Je krijgt een eerste haalbaarheidsinschatting en we benoemen eerlijk wanneer automatiseren niet zinvol lijkt. Als er een passende vervolgstap is, bespreken we die samen.",
+  },
+  {
+    question: "Wat gebeurt er na de scan?",
+    answer: "Alleen als er een kansrijke en afgebakende vervolgstap is, bespreken we welk onderzoek of prototype daarbij past. Je beslist daarna zelf of je verder wilt. De scan verplicht je nergens toe.",
+  },
+  {
+    question: "Wie onderhoudt de oplossing?",
+    answer: "Dat spreken we vóór de bouw expliciet af. We maken duidelijk welke onderdelen beheer nodig hebben, wie wijzigingen kan uitvoeren en wat er gebeurt als een gekoppeld systeem verandert.",
+  },
+  {
+    question: "Blijft er menselijke controle mogelijk?",
+    answer: "Ja. Uitzonderingen en onzekere gevallen hoeven niet automatisch door te gaan. We kunnen controles, goedkeuringsstappen en een duidelijke route naar een medewerker onderdeel van het proces maken.",
   },
 ] as const;
