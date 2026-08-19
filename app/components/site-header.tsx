@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 import { TrackedLink } from "./tracked-link";
 
@@ -12,13 +12,25 @@ const navItems = [
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
-    const close = (event: KeyboardEvent) => event.key === "Escape" && setMenuOpen(false);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+      requestAnimationFrame(() => menuButtonRef.current?.focus());
+    };
     document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
+    return () => {
+      document.removeEventListener("keydown", close);
+      document.body.style.overflow = previousOverflow;
+    };
   }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <header className="site-header">
@@ -32,10 +44,11 @@ export function SiteHeader() {
       </nav>
 
       <TrackedLink className="button button-small header-cta" href="#scan" event="cta_click" location="header">
-        Plan een gratis scan
+        Vraag de gratis scan aan
       </TrackedLink>
 
       <button
+        ref={menuButtonRef}
         className="mobile-toggle"
         type="button"
         aria-expanded={menuOpen}
@@ -47,14 +60,14 @@ export function SiteHeader() {
         <span />
       </button>
 
-      <div className={`mobile-nav ${menuOpen ? "is-open" : ""}`} id="mobiele-navigatie">
+      <div className={`mobile-nav ${menuOpen ? "is-open" : ""}`} id="mobiele-navigatie" aria-hidden={!menuOpen} inert={!menuOpen}>
         <nav aria-label="Mobiele navigatie">
           {navItems.map(([label, href], index) => (
-            <a key={href} href={href} onClick={() => setMenuOpen(false)}>
+            <a key={href} href={href} onClick={closeMenu}>
               <span>0{index + 1}</span>{label}
             </a>
           ))}
-          <a href="/privacy" onClick={() => setMenuOpen(false)}><span>04</span>Privacy</a>
+          <a href="/privacy" onClick={closeMenu}><span>04</span>Privacy</a>
         </nav>
       </div>
     </header>
