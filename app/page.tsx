@@ -8,17 +8,17 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main id="main-content">
         <section className="hero" id="top">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> Software op maat voor het mkb</p>
+            <p className="eyebrow"><span /> Maatwerksoftware en koppelingen voor mkb-teams</p>
             <h1>Handwerk eruit.<br /><em>Grip</em> terug.</h1>
-            <p className="hero-intro">We bouwen slimme software die terugkerend handwerk uit je bedrijf haalt. Geen standaardpakket, maar een praktische oplossing die aansluit op hoe je al werkt.</p>
+            <p className="hero-intro">We koppelen bestaande systemen en bouwen praktische software voor processen die bij mkb-teams van ongeveer 5–50 medewerkers blijven hangen in e-mail, spreadsheets en handmatig overtypen. Eerst onderzoeken we wat eenvoudiger kan. Pas daarna bepalen we of automatisering zinvol is.</p>
             <div className="hero-actions">
-              <TrackedLink className="button" href="#scan" event="cta_click" location="hero">Plan een gratis scan <span aria-hidden="true">&#8599;</span></TrackedLink>
+              <TrackedLink className="button" href="#scan" event="cta_click" location="hero">Vraag de gratis scan aan <span aria-hidden="true">&#8599;</span></TrackedLink>
               <a className="text-link" href="#mogelijkheden">Bekijk wat er mogelijk is <span aria-hidden="true">&#8595;</span></a>
             </div>
-            <p className="reassurance">Vrijblijvend gesprek <i /> Geen standaardpakket <i /> Direct met de bouwer</p>
+            <p className="reassurance">Eerst onderzoeken <i /> Geen standaardpakket <i /> Direct met de bouwer</p>
           </div>
 
           <div className="process-stage" aria-label="Voorbeeld van een geautomatiseerde werkstroom">
@@ -94,7 +94,7 @@ export default function Home() {
           <div className="fit-heading"><h2 id="fit-title">Een goede automatisering begint bij een <em>echt proces.</em></h2><p>De gratis scan is bedoeld om snel en eerlijk te bepalen of bouwen de moeite waard kan zijn.</p></div>
           <div className="fit-grid">
             <article className="fit-yes"><span className="fit-status">DIT PAST WAARSCHIJNLIJK</span><h3>Je herkent dit:</h3><ul><li><i>✓</i><span>Hetzelfde proces komt wekelijks of dagelijks terug.</span></li><li><i>✓</i><span>Meerdere collega’s of systemen zijn erbij betrokken.</span></li><li><i>✓</i><span>Je wilt tijd besparen én meer controle houden.</span></li><li><i>✓</i><span>Er is iemand die het huidige proces goed kent.</span></li></ul></article>
-            <article className="fit-no"><span className="fit-status">DIT PAST WAARSCHIJNLIJK NIET</span><h3>Je zoekt vooral:</h3><ul><li><i>×</i><span>Een gratis algemene website.</span></li><li><i>×</i><span>Een kant-en-klare app zonder procesonderzoek.</span></li><li><i>×</i><span>Een één-klik-AI-oplossing zonder menselijke controle.</span></li><li><i>×</i><span>Automatisering voor een eenmalige taak.</span></li></ul></article>
+            <article className="fit-no"><span className="fit-status">DIT PAST WAARSCHIJNLIJK NIET</span><h3>Je zoekt vooral:</h3><ul><li><i>×</i><span>Een los softwareproject zonder terugkerend bedrijfsproces.</span></li><li><i>×</i><span>Een kant-en-klare app zonder procesonderzoek.</span></li><li><i>×</i><span>Een één-klik-AI-oplossing zonder menselijke controle.</span></li><li><i>×</i><span>Automatisering voor een eenmalige taak.</span></li></ul></article>
           </div>
         </section>
 
@@ -106,6 +106,13 @@ export default function Home() {
             <div><span>03</span><h3>Controle op uitzonderingen</h3><p>Niet alles hoeft automatisch. Onzekere of afwijkende situaties kunnen bewust bij een medewerker terechtkomen.</p></div>
             <div><span>04</span><h3>Stapsgewijs opleveren</h3><p>Een vroeg prototype maakt aannames zichtbaar voordat een groter deel van het proces wordt gebouwd.</p></div>
           </div>
+          {siteConfig.builder.name && siteConfig.builder.role && siteConfig.builder.bio && (
+            <aside className="builder-profile" aria-label="Over de bouwer">
+              <span>DE BOUWER</span>
+              <h3>{siteConfig.builder.name}</h3>
+              <p><strong>{siteConfig.builder.role}</strong> — {siteConfig.builder.bio}</p>
+            </aside>
+          )}
         </section>
 
         <section className="faq-section section-rule" id="veelgestelde-vragen" aria-labelledby="faq-title">
@@ -116,9 +123,9 @@ export default function Home() {
 
         <section className="scan-section" id="scan" aria-labelledby="scan-title">
           <div className="scan-intro">
-            <p className="eyebrow light"><span /> Gratis automatiseringsscan — 30 minuten</p><h2 id="scan-title">Waar blijft bij jullie tijd liggen?</h2><p>Vertel kort welk proces steeds terugkomt. Tijdens de scan brengen we de stappen, tijdvreters en haalbaarheid in beeld — zonder verkooppraat of verplichting.</p>
-            <ul><li><i>✓</i><span>Eén concreet proces onder de loep</span></li><li><i>✓</i><span>Eerlijke inschatting van de haalbaarheid</span></li><li><i>✓</i><span>Direct contact met de bouwer</span></li></ul>
-            <div className="booking-alternative"><span>Lievere meteen een moment kiezen?</span><TrackedLink href={siteConfig.bookingUrl} event="booking_click" location="final_cta">Open de agenda <i aria-hidden="true">↗</i></TrackedLink></div>
+            <p className="eyebrow light"><span /> Gratis automatiseringsscan — 30 minuten</p><h2 id="scan-title">Waar blijft bij jullie tijd liggen?</h2><p>Vertel kort welk proces steeds terugkomt. In de scan onderzoeken we eerst wat er werkelijk gebeurt en of automatiseren zinvol is — zonder verkooppraat of verplichting.</p>
+            <ul><li><i>✓</i><span>Eén terugkerend proces bespreken</span></li><li><i>✓</i><span>Belangrijkste stappen en uitzonderingen benoemen</span></li><li><i>✓</i><span>Een eerste haalbaarheidsinschatting maken</span></li><li><i>✓</i><span>Eerlijk aangeven als automatiseren niet zinvol is</span></li><li><i>✓</i><span>Een mogelijke vervolgstap bespreken</span></li></ul>
+            <div className="booking-alternative"><span>Na je aanvraag nemen we per e-mail contact op om samen een geschikt moment te kiezen.</span></div>
           </div>
           <div className="form-panel"><div className="form-panel-heading"><span>AANVRAAG / 01</span><p>Velden met * zijn verplicht</p></div><LeadForm /></div>
         </section>
@@ -126,12 +133,12 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="footer-brand"><a className="brand brand-light" href="#top"><span className="brand-mark">P</span><span>{siteConfig.name}</span></a><p>Slimme software die terugkerend handwerk uit je bedrijf haalt.</p></div>
-        <div className="footer-column"><span>CONTACT</span><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a><a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>{siteConfig.phone}</a></div>
+        <div className="footer-column"><span>CONTACT</span><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></div>
         <div className="footer-column"><span>NAVIGATIE</span><a href="#mogelijkheden">Mogelijkheden</a><a href="#werkwijze">Werkwijze</a><a href="#veelgestelde-vragen">Veelgestelde vragen</a></div>
-        <div className="footer-column"><span>JURIDISCH</span><a href="/privacy">Privacybeleid</a><p>KvK: {siteConfig.chamberOfCommerce}</p></div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} {siteConfig.name}</span><span>Werknaam — gegevens vóór publicatie controleren</span></div>
+        <div className="footer-column"><span>JURIDISCH</span><a href="/privacy">Privacybeleid</a></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} {siteConfig.name}</span>{!siteConfig.isProduction && <span>Development — gegevens vóór publicatie controleren</span>}</div>
       </footer>
-      <TrackedLink className="mobile-sticky-cta" href="#scan" event="cta_click" location="mobile_sticky">Plan gratis scan <span aria-hidden="true">↗</span></TrackedLink>
+      <TrackedLink className="mobile-sticky-cta" href="#scan" event="cta_click" location="mobile_sticky">Vraag de gratis scan aan <span aria-hidden="true">↗</span></TrackedLink>
     </>
   );
 }
