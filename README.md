@@ -12,22 +12,21 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Lokale ontwikkeling mag bewust met de veilige placeholders uit `lib/site-config.ts` draaien. Niet-productieomgevingen zijn standaard niet indexeerbaar en tonen een launchwaarschuwing in de footer.
+Lokale ontwikkeling draait met de standaardwaarden uit `lib/site-config.ts`. Alleen een omgeving die expliciet op `test` of `development` staat is niet indexeerbaar; standaard gedraagt een build zich als productie.
 
-## Verplichte productieconfiguratie
+## Productieconfiguratie
 
-De publieke configuratie blijft centraal in [`lib/site-config.ts`](./lib/site-config.ts) en wordt via omgevingsvariabelen gevuld. Een gewone `npm run build` stopt wanneer een launchblokkade aanwezig is. Vul vóór een publieke build minimaal in:
+De publieke configuratie staat centraal in [`lib/site-config.ts`](./lib/site-config.ts) en wordt via omgevingsvariabelen gevuld. Er is bewust geen build-blokkade: `npm run build` bouwt altijd. Zet voor een publieke build:
 
 - `NEXT_PUBLIC_DEPLOYMENT_ENV=production` en `APP_ENV=production`;
 - `NEXT_PUBLIC_SITE_URL`: publieke HTTPS-origin zonder extra pad;
-- `NEXT_PUBLIC_LEGAL_NAME`, `NEXT_PUBLIC_SITE_ADDRESS` en `NEXT_PUBLIC_CHAMBER_OF_COMMERCE`;
-- `NEXT_PUBLIC_SITE_EMAIL` en een echt `NEXT_PUBLIC_SITE_PHONE`;
-- `NEXT_PUBLIC_RETENTION_PERIOD` en gecontroleerde `NEXT_PUBLIC_SUBPROCESSORS`-tekst;
-- `NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED=true`, uitsluitend na professionele juridische controle;
-- `LEAD_WEBHOOK_URL` en, behalve bij een Formspree-endpoint, het serversecret `LEAD_WEBHOOK_SECRET` van minimaal 32 tekens;
-- `CLOUDFLARE_RATE_LIMITING_CONFIGURED=true`, uitsluitend nadat de hieronder beschreven productieregel actief is.
+- `LEAD_WEBHOOK_URL`: bestemming voor gevalideerde aanvragen.
 
-De optionele velden `NEXT_PUBLIC_BUILDER_NAME`, `NEXT_PUBLIC_BUILDER_ROLE` en `NEXT_PUBLIC_BUILDER_BIO` worden alleen getoond wanneer ze alle drie zijn ingevuld. Verzin hiervoor geen bio. Beheer serversecrets in de Sites-/Cloudflare-omgeving en commit ze nooit.
+Optioneel: `NEXT_PUBLIC_SITE_EMAIL`, `NEXT_PUBLIC_RETENTION_PERIOD` en `NEXT_PUBLIC_SUBPROCESSORS` overschrijven de standaardteksten. `NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED=true` verbergt de controlewaarschuwing op de privacypagina; zet die uitsluitend na een professionele juridische controle.
+
+De site toont geen juridische bedrijfsnaam, vestigingsadres, KvK-nummer of telefoonnummer. Die velden bestaan niet meer in de configuratie.
+
+De optionele velden `NEXT_PUBLIC_BUILDER_NAME`, `NEXT_PUBLIC_BUILDER_ROLE` en `NEXT_PUBLIC_BUILDER_BIO` worden alleen getoond wanneer ze alle drie zijn ingevuld. Verzin hiervoor geen bio.
 
 ## Leadontvangst
 

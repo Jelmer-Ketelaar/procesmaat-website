@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
 
 const securityHeaderNames = [
   "content-security-policy",
@@ -342,4 +343,18 @@ test("HTTPS production HTML adds HSTS without losing the other headers", async (
   const response = await request("/", {}, { APP_ENV: "production" }, "https://www.procesmaat.nl");
   assertSecurityHeaders(response);
   assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=31536000/);
+});
+
+test("client source contains focus restoration and success-focus contracts", async () => {
+  const [formSource, headerSource] = await Promise.all([
+    readFile(new URL("../app/components/lead-form.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/site-header.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(formSource, /successRef\.current\?\.focus\(\)/);
+  assert.match(formSource, /querySelector<HTMLElement>\("\[aria-invalid='true'\]"\)/);
+  assert.match(formSource, /status === "submitting"/);
+  assert.match(headerSource, /event\.key !== "Escape"/);
+  assert.match(headerSource, /menuButtonRef\.current\?\.focus\(\)/);
+  assert.match(headerSource, /inert=\{!menuOpen\}/);
 });
