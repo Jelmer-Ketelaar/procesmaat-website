@@ -2,10 +2,11 @@
 
 export type AnalyticsEvent =
   | "cta_click"
-  | "booking_click"
   | "lead_form_start"
   | "lead_submit"
-  | "lead_submit_success";
+  | "lead_submit_success"
+  | "lead_validation_error"
+  | "lead_submit_error";
 
 /**
  * Consent-safe event hook. No tracker is loaded here: analytics tooling may
