@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy" },
   openGraph: { title: privacyTitle, description: privacyDescription, url: "/privacy", images: [] },
   twitter: { title: privacyTitle, description: privacyDescription, images: [] },
+  robots: { index: false, follow: true },
 };
 
 export default function PrivacyPage() {

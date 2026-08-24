@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const title = "ProcesMaat — Slimme software voor minder handwerk";
-const description = "Maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams. Vraag een gratis automatiseringsscan van 30 minuten aan en onderzoek eerst wat zinvol is.";
+const title = "Procesautomatisering voor het mkb | ProcesMaat";
+const description = "Minder handwerk met procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams. Vraag een gratis automatiseringsscan aan.";
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f3f0e8" };
 
@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title,
   description,
   applicationName: siteConfig.name,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  category: "business software",
   alternates: { canonical: "/" },
   icons: {
     icon: [
@@ -33,7 +36,18 @@ export const metadata: Metadata = {
     images: [{ url: socialImage, width: 1200, height: 629, alt: "ProcesMaat — Handwerk eruit. Grip terug." }],
   },
   twitter: { card: "summary_large_image", title, description, images: [socialImage] },
-  robots: { index: siteConfig.isIndexable, follow: siteConfig.isIndexable },
+  robots: {
+    index: siteConfig.isIndexable,
+    follow: siteConfig.isIndexable,
+    googleBot: {
+      index: siteConfig.isIndexable,
+      follow: siteConfig.isIndexable,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  ...(siteConfig.googleSiteVerification ? { verification: { google: siteConfig.googleSiteVerification } } : {}),
 };
 
 export default function RootLayout({

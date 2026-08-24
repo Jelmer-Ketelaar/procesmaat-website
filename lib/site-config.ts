@@ -25,6 +25,7 @@ export const siteConfig = {
   isProduction: deploymentEnvironment === "production",
   isIndexable: deploymentEnvironment === "production",
   legalReviewCompleted: process.env.NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED === "true",
+  googleSiteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "",
   socials: { linkedIn: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "" },
   privacy: {
     retentionPeriod: process.env.NEXT_PUBLIC_RETENTION_PERIOD ?? defaults.retentionPeriod,

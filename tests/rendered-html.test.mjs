@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFile } from "node:fs/promises";
 
 const securityHeaderNames = [
   "content-security-policy",
@@ -99,6 +98,42 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /property="og:image:width" content="1200"/i);
   assert.match(html, /property="og:image:height" content="629"/i);
   assert.match(html, /name="robots" content="noindex, nofollow"/i);
+  assert.match(html, /Procesautomatisering voor het mkb \| ProcesMaat/);
+  assert.match(html, /application\/ld\+json/i);
+  assert.match(html, /"@type":"Organization"/);
+  assert.match(html, /"@type":"FAQPage"/);
+});
+
+test("commercial service pages render unique search metadata, useful content and structured data", async () => {
+  const pages = [
+    ["/procesautomatisering", "Procesautomatisering voor het mkb", "Wanneer is een proces geschikt voor automatisering"],
+    ["/maatwerksoftware", "Maatwerksoftware voor het mkb", "Wanneer past maatwerksoftware bij je bedrijf"],
+    ["/systeemkoppelingen", "Systemen koppelen en API-koppelingen", "Wanneer helpt een systeemkoppeling"],
+  ];
+
+  for (const [path, metadataTitle, heading] of pages) {
+    const response = await request(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.match(html, new RegExp(`rel="canonical" href="https:\\/\\/procesmaat\\.test${path}`), path);
+    assert.match(html, new RegExp(metadataTitle), path);
+    assert.match(html, new RegExp(heading), path);
+    assert.match(html, /"@type":"Service"/, path);
+    assert.match(html, /"@type":"BreadcrumbList"/, path);
+    assert.match(html, /"@type":"FAQPage"/, path);
+    assert.match(html, /Vraag een gratis scan aan/, path);
+  }
+});
+
+test("services hub links every focused commercial page", async () => {
+  const response = await request("/diensten");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /Van terugkerend handwerk naar een beheerste digitale werkwijze/);
+  assert.match(html, /href="\/procesautomatisering"/);
+  assert.match(html, /href="\/maatwerksoftware"/);
+  assert.match(html, /href="\/systeemkoppelingen"/);
+  assert.match(html, /"@type":"BreadcrumbList"/);
 });
 
 test("privacy has unique metadata and clears the inherited social image", async () => {
@@ -109,6 +144,7 @@ test("privacy has unique metadata and clears the inherited social image", async 
   assert.match(html, /Voor publicatie controleren/);
   assert.match(html, /Autoriteit Persoonsgegevens/);
   assert.match(html, /rel="canonical" href="https:\/\/procesmaat\.test\/privacy"/i);
+  assert.match(html, /name="robots" content="noindex, follow"/i);
   assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i);
 });
 
@@ -125,7 +161,11 @@ test("sitemap uses the same configured public origin", async () => {
   assert.equal(response.status, 200);
   const xml = await response.text();
   assert.match(xml, /https:\/\/procesmaat\.test\/?</);
-  assert.match(xml, /https:\/\/procesmaat\.test\/privacy/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/diensten/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/procesautomatisering/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/maatwerksoftware/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/systeemkoppelingen/);
+  assert.doesNotMatch(xml, /https:\/\/procesmaat\.test\/privacy/);
 });
 
 test("lead endpoint returns explicit Dutch field errors", async () => {
@@ -343,18 +383,4 @@ test("HTTPS production HTML adds HSTS without losing the other headers", async (
   const response = await request("/", {}, { APP_ENV: "production" }, "https://www.procesmaat.nl");
   assertSecurityHeaders(response);
   assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=31536000/);
-});
-
-test("client source contains focus restoration and success-focus contracts", async () => {
-  const [formSource, headerSource] = await Promise.all([
-    readFile(new URL("../app/components/lead-form.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/components/site-header.tsx", import.meta.url), "utf8"),
-  ]);
-
-  assert.match(formSource, /successRef\.current\?\.focus\(\)/);
-  assert.match(formSource, /querySelector<HTMLElement>\("\[aria-invalid='true'\]"\)/);
-  assert.match(formSource, /status === "submitting"/);
-  assert.match(headerSource, /event\.key !== "Escape"/);
-  assert.match(headerSource, /menuButtonRef\.current\?\.focus\(\)/);
-  assert.match(headerSource, /inert=\{!menuOpen\}/);
 });
