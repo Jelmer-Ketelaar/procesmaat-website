@@ -1,6 +1,7 @@
 const configuredEnvironment = process.env.NEXT_PUBLIC_DEPLOYMENT_ENV;
 const isTestBuild = process.env.PROCESMAAT_BUILD_MODE === "test" || configuredEnvironment === "test";
 const deploymentEnvironment = configuredEnvironment ?? (isTestBuild ? "test" : "production");
+const productionSiteUrl = "https://procesmaatsoftware.nl";
 
 const defaults = isTestBuild
   ? {
@@ -9,7 +10,7 @@ const defaults = isTestBuild
       subprocessors: "Geen; testconfiguratie",
     }
   : {
-      siteUrl: "https://procesmaatsoftware.nl",
+      siteUrl: productionSiteUrl,
       retentionPeriod: "Aanvragen bewaren we zolang dat nodig is om je vraag af te handelen.",
       subprocessors: "Formspree (verwerking van formulierinzendingen) en Cloudflare (hosting).",
     };
