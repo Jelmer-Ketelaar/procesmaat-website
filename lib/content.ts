@@ -12,24 +12,28 @@ export const automationExamples = [
     title: "Facturen & documenten",
     text: "Bestanden uitlezen, gegevens controleren en klaarzetten in je boekhouding of backoffice.",
     tag: "Verwerking",
+    href: "/procesautomatisering",
   },
   {
     number: "02",
     title: "Leadintake & opvolging",
     text: "Aanvragen verrijken, verdelen en opvolgtaken aanmaken zonder dat een lead tussen wal en schip valt.",
     tag: "Opvolging",
+    href: "/procesautomatisering",
   },
   {
     number: "03",
     title: "Dashboards & rapportages",
     text: "Actuele informatie uit meerdere bronnen samenbrengen in één overzicht dat zichzelf bijwerkt.",
     tag: "Overzicht",
+    href: "/maatwerksoftware",
   },
   {
     number: "04",
     title: "Systemen koppelen",
     text: "Bestaande tools via API’s, webhooks of gecontroleerde gegevensuitwisseling met elkaar laten samenwerken.",
     tag: "Integratie",
+    href: "/systeemkoppelingen",
   },
 ] as const;
 

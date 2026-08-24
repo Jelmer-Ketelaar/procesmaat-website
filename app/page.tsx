@@ -1,12 +1,25 @@
+import Link from "next/link";
+import { JsonLd } from "@/app/components/json-ld";
 import { LeadForm } from "@/app/components/lead-form";
+import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { TrackedLink } from "@/app/components/tracked-link";
 import { automationExamples, faqs, problemItems, processSteps } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
+import { faqSchema, graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
+
+const homeTitle = "Procesautomatisering voor het mkb | ProcesMaat";
+const homeDescription = "Minder handwerk met procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams. Vraag een gratis automatiseringsscan aan.";
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={graphSchema([
+        organizationSchema(),
+        websiteSchema(),
+        webPageSchema("/", homeTitle, homeDescription),
+        faqSchema(faqs),
+      ])} />
       <SiteHeader />
       <main id="main-content">
         <section className="hero" id="top">
@@ -54,7 +67,8 @@ export default function Home() {
             {automationExamples.map((example) => (
               <article className="example-item" key={example.number}>
                 <div className="example-meta"><span>{example.number}</span><i>{example.tag}</i></div>
-                <h3>{example.title}</h3><p>{example.text}</p><span className="corner-arrow" aria-hidden="true">↗</span>
+                <h3><Link href={example.href}>{example.title}</Link></h3><p>{example.text}</p>
+                <Link className="example-link" href={example.href} aria-label={`Lees meer over ${example.title.toLowerCase()}`}>Lees meer <span aria-hidden="true">↗</span></Link>
               </article>
             ))}
           </div>
@@ -131,13 +145,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-brand"><a className="brand brand-light" href="#top"><span className="brand-mark">P</span><span>{siteConfig.name}</span></a><p>Slimme software die terugkerend handwerk uit je bedrijf haalt.</p></div>
-        <div className="footer-column"><span>CONTACT</span><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></div>
-        <div className="footer-column"><span>NAVIGATIE</span><a href="#mogelijkheden">Mogelijkheden</a><a href="#werkwijze">Werkwijze</a><a href="#veelgestelde-vragen">Veelgestelde vragen</a></div>
-        <div className="footer-column"><span>JURIDISCH</span><a href="/privacy">Privacybeleid</a></div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} {siteConfig.name}</span>{!siteConfig.isProduction && <span>Development — gegevens vóór publicatie controleren</span>}</div>
-      </footer>
+      <SiteFooter />
       <TrackedLink className="mobile-sticky-cta" href="#scan" event="cta_click" location="mobile_sticky">Vraag de gratis scan aan <span aria-hidden="true">↗</span></TrackedLink>
     </>
   );

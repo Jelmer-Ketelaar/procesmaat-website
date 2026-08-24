@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { TrackedLink } from "./tracked-link";
 
 const navItems = [
-  ["Mogelijkheden", "#mogelijkheden"],
-  ["Werkwijze", "#werkwijze"],
-  ["Veelgestelde vragen", "#veelgestelde-vragen"],
+  ["Diensten", "/diensten"],
+  ["Werkwijze", "/#werkwijze"],
+  ["Veelgestelde vragen", "/#veelgestelde-vragen"],
 ] as const;
 
 export function SiteHeader() {
@@ -34,16 +35,16 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <a className="brand" href="#top" aria-label={`${siteConfig.name} — naar boven`}>
+      <Link className="brand" href="/" aria-label={`${siteConfig.name} — homepage`}>
         <span className="brand-mark" aria-hidden="true">P</span>
         <span>{siteConfig.name}</span>
-      </a>
+      </Link>
 
       <nav className="desktop-nav" aria-label="Hoofdnavigatie">
         {navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
       </nav>
 
-      <TrackedLink className="button button-small header-cta" href="#scan" event="cta_click" location="header">
+      <TrackedLink className="button button-small header-cta" href="/#scan" event="cta_click" location="header">
         Vraag de gratis scan aan
       </TrackedLink>
 
