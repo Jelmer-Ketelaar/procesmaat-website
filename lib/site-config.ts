@@ -9,7 +9,7 @@ const defaults = isTestBuild
       subprocessors: "Geen; testconfiguratie",
     }
   : {
-      siteUrl: "https://www.procesmaatsoftware.nl",
+      siteUrl: "https://procesmaatsoftware.nl",
       retentionPeriod: "Aanvragen bewaren we zolang dat nodig is om je vraag af te handelen.",
       subprocessors: "Formspree (verwerking van formulierinzendingen) en Cloudflare (hosting).",
     };
