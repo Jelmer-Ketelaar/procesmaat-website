@@ -384,3 +384,18 @@ test("HTTPS production HTML adds HSTS without losing the other headers", async (
   assertSecurityHeaders(response);
   assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=31536000/);
 });
+
+test("production redirects the www host permanently to the canonical apex host", async () => {
+  const response = await request(
+    "/procesautomatisering?utm_source=google",
+    {},
+    { APP_ENV: "production" },
+    "https://www.procesmaatsoftware.nl",
+  );
+
+  assert.equal(response.status, 308);
+  assert.equal(response.headers.get("location"), "https://procesmaatsoftware.nl/procesautomatisering?utm_source=google");
+  assert.match(response.headers.get("cache-control") ?? "", /max-age=3600/);
+  assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=31536000/);
+  assertSecurityHeaders(response);
+});

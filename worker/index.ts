@@ -5,6 +5,7 @@ import { z } from "zod";
 import { companySizeValues, hoursPerWeekValues, isSafeEmailAddress, leadFieldLimits } from "../lib/lead-fields";
 
 const MAX_REQUEST_BYTES = 20_000;
+const CANONICAL_HOST = "procesmaatsoftware.nl";
 
 const attributionSchema = z.object({
   utm_source: z.string().trim().max(leadFieldLimits.attribution.max, "Campagnebron is te lang.").optional(),
@@ -114,6 +115,16 @@ function withDocumentSecurity(request: Request, env: Env, response: Response) {
   });
 }
 
+function canonicalHostRedirect(request: Request, env: Env, url: URL) {
+  if (env.APP_ENV !== "production" || url.hostname.toLowerCase() !== `www.${CANONICAL_HOST}`) return null;
+
+  url.hostname = CANONICAL_HOST;
+  const headers = securityHeaders(request, env);
+  headers.set("Location", url.toString());
+  headers.set("Cache-Control", "public, max-age=3600");
+  return new Response(null, { status: 308, headers });
+}
+
 async function readJsonWithinLimit(request: Request): Promise<
   | { ok: true; value: unknown }
   | { ok: false; reason: "invalid" | "too-large" }
@@ -201,6 +212,8 @@ function webhookConfigurationError(request: Request, env: Env) {
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+    const hostRedirect = canonicalHostRedirect(request, env, url);
+    if (hostRedirect) return hostRedirect;
 
     if (url.pathname === "/api/leads") {
       if (request.method !== "POST") {
