@@ -18,7 +18,7 @@ export default function PrivacyPage() {
   return (
     <>
       <header className="site-header privacy-header">
-        <Link className="brand" href="/" aria-label={`${siteConfig.name} — naar de homepage`}><span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span></Link>
+        <Link className="brand" href="/"><span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span></Link>
         <Link className="text-link" href="/">← Terug naar de homepage</Link>
       </header>
       <main className="privacy-page" id="main-content">
@@ -99,7 +99,7 @@ export default function PrivacyPage() {
               <span className="privacy-number">08</span>
               <h2>Wijzigingen</h2>
               <p>Als de website, dienstverlening of regelgeving verandert, kan dit beleid worden aangepast. De meest recente versie staat altijd op deze pagina.</p>
-              <p className="privacy-date">Laatste conceptwijziging: 18 augustus 2026.</p>
+              <p className="privacy-date">Laatste conceptwijziging: 25 augustus 2026.</p>
             </section>
           </article>
         </div>

@@ -108,6 +108,9 @@ function isTrustedFormOrigin(request: Request) {
 function withDocumentSecurity(request: Request, env: Env, response: Response) {
   const headers = new Headers(response.headers);
   securityHeaders(request, env).forEach((value, key) => headers.set(key, value));
+  if (env.APP_ENV === "production" && response.status === 200 && ["GET", "HEAD"].includes(request.method)) {
+    headers.set("Cache-Control", "public, max-age=0, s-maxage=900, stale-while-revalidate=86400");
+  }
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
