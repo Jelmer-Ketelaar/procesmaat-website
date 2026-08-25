@@ -82,8 +82,8 @@ De gevalideerde lokale productie-Worker gaf na de wijzigingen:
 
 | Profiel | Performance | Accessibility | Best Practices | SEO | LCP | TBT | CLS |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Mobiel | 97 | 100 | 100 | 100 | 2,2 s | 0 ms | 0 |
-| Desktop | 100 | 100 | 100 | 100 | 0,6 s | 0 ms | 0 |
+| Mobiel | 97 | 100 | 100 | 100 | 2,2 s | 10 ms | 0 |
+| Desktop | 100 | 100 | 100 | 100 | 0,5 s | 0 ms | 0 |
 
 Dit is geen zuivere voor/na-vergelijking van hosting: de nulmeting liep tegen het publieke Cloudflare-domein, de nameting tegen dezelfde productiebuild in een lokale Worker. Beide zijn labdata, geen Core Web Vitals-velddata. De publieke nulmeting werd merkbaar beïnvloed door Cloudflare challenge-JavaScript en een documentrespons rond 1,5 seconde. Herhaal dezelfde mobiele en desktopmeting op de publieke URL na deployment en gebruik daarna minimaal 28 dagen Search Console/CrUX-velddata voordat performance als structureel goed of slecht wordt beoordeeld.
 
