@@ -5,7 +5,6 @@ import { SiteHeader } from "@/app/components/site-header";
 import { serviceList, type ServicePageContent } from "@/lib/services";
 import {
   breadcrumbSchema,
-  faqSchema,
   graphSchema,
   organizationSchema,
   serviceSchema,
@@ -29,7 +28,6 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
           { name: "Diensten", path: "/diensten" },
           { name: service.shortTitle, path },
         ]),
-        faqSchema(service.faq),
       ])} />
       <SiteHeader />
       <main id="main-content" className="service-page">
@@ -114,6 +112,7 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
             </div>
             <div className="related-links">
               {related.map((item) => <Link key={item.slug} href={`/${item.slug}`}>{item.shortTitle}<span aria-hidden="true">↗</span></Link>)}
+              <Link href="/kennisbank">Praktische kennisbank<span aria-hidden="true">↗</span></Link>
             </div>
           </section>
 

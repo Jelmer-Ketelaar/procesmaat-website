@@ -5,8 +5,9 @@ import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { TrackedLink } from "@/app/components/tracked-link";
 import { automationExamples, faqs, problemItems, processSteps } from "@/lib/content";
+import { knowledgeList } from "@/lib/knowledge";
 import { siteConfig } from "@/lib/site-config";
-import { faqSchema, graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
+import { graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
 
 const homeTitle = "Procesautomatisering voor het mkb | ProcesMaat";
 const homeDescription = "Minder handwerk met procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams. Vraag een gratis automatiseringsscan aan.";
@@ -18,7 +19,6 @@ export default function Home() {
         organizationSchema(),
         websiteSchema(),
         webPageSchema("/", homeTitle, homeDescription),
-        faqSchema(faqs),
       ])} />
       <SiteHeader />
       <main id="main-content">
@@ -129,8 +129,29 @@ export default function Home() {
           )}
         </section>
 
+        <section className="home-knowledge section-rule" aria-labelledby="home-knowledge-title">
+          <div className="section-label"><span>06</span><p>Kennisbank</p></div>
+          <div>
+            <div className="home-knowledge-heading">
+              <h2 id="home-knowledge-title">Eerst scherp kiezen.<br /><em>Dan pas bouwen.</em></h2>
+              <p>Praktische uitleg voor teams die minder handwerk willen, maar eerst willen begrijpen welke route betrouwbaar en beheersbaar is.</p>
+            </div>
+            <div className="home-knowledge-grid">
+              {knowledgeList.slice(0, 3).map((article) => (
+                <article key={article.slug}>
+                  <span>{article.readingTime}</span>
+                  <h3><Link href={`/kennisbank/${article.slug}`}>{article.title}</Link></h3>
+                  <p>{article.metaDescription}</p>
+                  <Link href={`/kennisbank/${article.slug}`}>Lees artikel <i aria-hidden="true">↗</i></Link>
+                </article>
+              ))}
+            </div>
+            <Link className="home-knowledge-all" href="/kennisbank">Bekijk de volledige kennisbank <span aria-hidden="true">→</span></Link>
+          </div>
+        </section>
+
         <section className="faq-section section-rule" id="veelgestelde-vragen" aria-labelledby="faq-title">
-          <div className="section-label"><span>06</span><p>Veelgestelde vragen</p></div>
+          <div className="section-label"><span>07</span><p>Veelgestelde vragen</p></div>
           <div className="faq-heading"><h2 id="faq-title">Eerst weten<br />waar je aan toe bent.</h2><p>Staat je vraag er niet tussen? Tijdens de gratis scan kijken we graag naar jouw situatie.</p></div>
           <div className="faq-list">{faqs.map((faq, index) => <details key={faq.question}><summary><span>0{index + 1}</span><b>{faq.question}</b><i aria-hidden="true">+</i></summary><div><p>{faq.answer}</p></div></details>)}</div>
         </section>

@@ -7,6 +7,7 @@ import { TrackedLink } from "./tracked-link";
 
 const navItems = [
   ["Diensten", "/diensten"],
+  ["Kennisbank", "/kennisbank"],
   ["Werkwijze", "/#werkwijze"],
   ["Veelgestelde vragen", "/#veelgestelde-vragen"],
 ] as const;
@@ -35,7 +36,7 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label={`${siteConfig.name} — homepage`}>
+      <Link className="brand" href="/">
         <span className="brand-mark" aria-hidden="true">P</span>
         <span>{siteConfig.name}</span>
       </Link>
@@ -68,7 +69,7 @@ export function SiteHeader() {
               <span>0{index + 1}</span>{label}
             </a>
           ))}
-          <a href="/privacy" onClick={closeMenu}><span>04</span>Privacy</a>
+          <a href="/privacy" onClick={closeMenu}><span>05</span>Privacy</a>
         </nav>
       </div>
     </header>

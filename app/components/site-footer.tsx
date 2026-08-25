@@ -5,7 +5,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-brand">
-        <Link className="brand brand-light" href="/" aria-label={`${siteConfig.name} — homepage`}>
+        <Link className="brand brand-light" href="/">
           <span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span>
         </Link>
         <p>Procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams.</p>
@@ -19,6 +19,7 @@ export function SiteFooter() {
       <div className="footer-column">
         <span>PROCESMAAT</span>
         <Link href="/diensten">Alle diensten</Link>
+        <Link href="/kennisbank">Kennisbank</Link>
         <Link href="/#werkwijze">Werkwijze</Link>
         <Link href="/#veelgestelde-vragen">Veelgestelde vragen</Link>
         <Link href="/#scan">Gratis automatiseringsscan</Link>
