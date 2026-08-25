@@ -101,7 +101,7 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /Procesautomatisering voor het mkb \| ProcesMaat/);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /"@type":"Organization"/);
-  assert.match(html, /"@type":"FAQPage"/);
+  assert.doesNotMatch(html, /"@type":"FAQPage"/);
 });
 
 test("commercial service pages render unique search metadata, useful content and structured data", async () => {
@@ -120,8 +120,42 @@ test("commercial service pages render unique search metadata, useful content and
     assert.match(html, new RegExp(heading), path);
     assert.match(html, /"@type":"Service"/, path);
     assert.match(html, /"@type":"BreadcrumbList"/, path);
-    assert.match(html, /"@type":"FAQPage"/, path);
+    assert.doesNotMatch(html, /"@type":"FAQPage"/, path);
+    assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i, path);
     assert.match(html, /Vraag een gratis scan aan/, path);
+  }
+});
+
+test("knowledge hub and articles render unique metadata, article schema and practical internal routes", async () => {
+  const hub = await request("/kennisbank");
+  assert.equal(hub.status, 200);
+  const hubHtml = await hub.text();
+  assert.match(hubHtml, /Kennisbank over procesautomatisering \| ProcesMaat/);
+  assert.match(hubHtml, /rel="canonical" href="https:\/\/procesmaat\.test\/kennisbank"/i);
+  assert.match(hubHtml, /"@type":"ItemList"/);
+  assert.match(hubHtml, /href="\/kennisbank\/bedrijfsprocessen-automatiseren"/);
+
+  const pages = [
+    ["bedrijfsprocessen-automatiseren", "Bedrijfsprocessen automatiseren voor het mkb | ProcesMaat", "/procesautomatisering"],
+    ["welk-proces-automatiseren", "Welk proces automatiseren? Praktische keuzehulp", "/procesautomatisering"],
+    ["maatwerksoftware-of-standaardpakket", "Maatwerksoftware of standaardpakket kiezen", "/maatwerksoftware"],
+    ["api-koppeling-checklist", "API-koppeling checklist voor het mkb", "/systeemkoppelingen"],
+  ];
+
+  for (const [slug, title, servicePath] of pages) {
+    const path = `/kennisbank/${slug}`;
+    const response = await request(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.ok(html.includes(title), path);
+    assert.ok(html.includes(`rel="canonical" href="https://procesmaat.test${path}"`), path);
+    assert.equal((html.match(/<h1\b/gi) ?? []).length, 1, path);
+    assert.match(html, /"@type":"Article"/, path);
+    assert.match(html, /"@type":"BreadcrumbList"/, path);
+    assert.match(html, /"datePublished":"2026-08-25"/, path);
+    assert.match(html, new RegExp(`href="${servicePath}"`), path);
+    assert.match(html, /href="\/#scan"/, path);
+    assert.doesNotMatch(html, /property="og:image"|name="twitter:image"|"@type":"FAQPage"/i, path);
   }
 });
 
@@ -165,7 +199,84 @@ test("sitemap uses the same configured public origin", async () => {
   assert.match(xml, /https:\/\/procesmaat\.test\/procesautomatisering/);
   assert.match(xml, /https:\/\/procesmaat\.test\/maatwerksoftware/);
   assert.match(xml, /https:\/\/procesmaat\.test\/systeemkoppelingen/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/kennisbank</);
+  assert.match(xml, /https:\/\/procesmaat\.test\/kennisbank\/bedrijfsprocessen-automatiseren/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/kennisbank\/welk-proces-automatiseren/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/kennisbank\/maatwerksoftware-of-standaardpakket/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/kennisbank\/api-koppeling-checklist/);
   assert.doesNotMatch(xml, /https:\/\/procesmaat\.test\/privacy/);
+});
+
+test("custom 404 is useful, noindex and does not inherit the homepage canonical", async () => {
+  const response = await request("/bestaat-niet");
+  assert.equal(response.status, 404);
+  const html = await response.text();
+  assert.match(html, /Pagina niet gevonden \| ProcesMaat/);
+  assert.match(html, /name="robots" content="noindex, follow"/i);
+  assert.match(html, /href="\/kennisbank"/);
+  assert.doesNotMatch(html, /rel="canonical"|property="og:image"|name="twitter:image"/i);
+});
+
+test("every rendered editorial and commercial page has one H1 and no broken internal page links", async () => {
+  const paths = [
+    "/",
+    "/diensten",
+    "/procesautomatisering",
+    "/maatwerksoftware",
+    "/systeemkoppelingen",
+    "/kennisbank",
+    "/kennisbank/bedrijfsprocessen-automatiseren",
+    "/kennisbank/welk-proces-automatiseren",
+    "/kennisbank/maatwerksoftware-of-standaardpakket",
+    "/kennisbank/api-koppeling-checklist",
+    "/privacy",
+  ];
+  const linkedPaths = new Set();
+
+  for (const path of paths) {
+    const response = await request(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.equal((html.match(/<h1\b/gi) ?? []).length, 1, path);
+    for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)) {
+      const href = match[1];
+      if (href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("#")) continue;
+      const url = new URL(href, `https://procesmaat.test${path}`);
+      if (url.origin === "https://procesmaat.test") linkedPaths.add(url.pathname);
+    }
+  }
+
+  for (const path of linkedPaths) {
+    const response = await request(path);
+    assert.ok(response.status < 400, `${path} returned ${response.status}`);
+  }
+});
+
+test("all emitted JSON-LD blocks parse and keep identifiers on the configured origin", async () => {
+  const paths = [
+    "/",
+    "/diensten",
+    "/procesautomatisering",
+    "/maatwerksoftware",
+    "/systeemkoppelingen",
+    "/kennisbank",
+    "/kennisbank/bedrijfsprocessen-automatiseren",
+    "/kennisbank/welk-proces-automatiseren",
+    "/kennisbank/maatwerksoftware-of-standaardpakket",
+    "/kennisbank/api-koppeling-checklist",
+  ];
+
+  for (const path of paths) {
+    const html = await (await request(path)).text();
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)];
+    assert.ok(blocks.length > 0, path);
+    for (const [, source] of blocks) {
+      const schema = JSON.parse(source);
+      assert.equal(schema["@context"], "https://schema.org", path);
+      assert.ok(Array.isArray(schema["@graph"]), path);
+      assert.doesNotMatch(JSON.stringify(schema), /localhost|www\.procesmaatsoftware\.nl/i, path);
+    }
+  }
 });
 
 test("lead endpoint returns explicit Dutch field errors", async () => {
@@ -383,6 +494,7 @@ test("HTTPS production HTML adds HSTS without losing the other headers", async (
   const response = await request("/", {}, { APP_ENV: "production" }, "https://www.procesmaat.nl");
   assertSecurityHeaders(response);
   assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=31536000/);
+  assert.equal(response.headers.get("cache-control"), "public, max-age=0, s-maxage=900, stale-while-revalidate=86400");
 });
 
 test("production redirects the www host permanently to the canonical apex host", async () => {
