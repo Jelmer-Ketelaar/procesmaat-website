@@ -1,6 +1,6 @@
 # ProcesMaat website
 
-Nederlandstalige B2B-landingspagina voor maatwerksoftware, systeemkoppelingen, dashboards en automatisering. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten; 
+Nederlandstalige B2B-website voor maatwerksoftware, systeemkoppelingen, dashboards en automatisering. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten.
 
 ## Lokaal starten
 
@@ -16,13 +16,16 @@ Lokale ontwikkeling draait met de standaardwaarden uit `lib/site-config.ts`. All
 
 ## Productieconfiguratie
 
-De publieke configuratie staat centraal in [`lib/site-config.ts`](./lib/site-config.ts) en wordt via omgevingsvariabelen gevuld. Er is bewust geen build-blokkade: `npm run build` bouwt altijd. Zet voor een publieke build:
+De publieke configuratie staat centraal in [`lib/site-config.ts`](./lib/site-config.ts) en wordt via omgevingsvariabelen gevuld. `npm run build` blijft beschikbaar voor CI en previews. `npm run build:production` voert eerst de expliciete productie-readinesscontrole uit. Zet daarvoor:
 
 - `NEXT_PUBLIC_DEPLOYMENT_ENV=production` en `APP_ENV=production`;
 - `NEXT_PUBLIC_SITE_URL`: publieke HTTPS-origin zonder extra pad;
+- `NEXT_PUBLIC_SITE_EMAIL`, `NEXT_PUBLIC_RETENTION_PERIOD` en `NEXT_PUBLIC_SUBPROCESSORS`: gecontroleerde publieke gegevens;
+- `NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED=true` na professionele controle van het privacybeleid;
+- `CLOUDFLARE_RATE_LIMITING_CONFIGURED=true` nadat de edge-regel werkelijk actief is;
 - `LEAD_WEBHOOK_URL`: bestemming voor gevalideerde aanvragen.
 
-Optioneel: `NEXT_PUBLIC_SITE_EMAIL`, `NEXT_PUBLIC_RETENTION_PERIOD` en `NEXT_PUBLIC_SUBPROCESSORS` overschrijven de standaardteksten. `NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED=true` verbergt de controlewaarschuwing op de privacypagina; zet die uitsluitend na een professionele juridische controle.
+`NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED=true` verbergt de controlewaarschuwing op de privacypagina; zet die uitsluitend na een professionele juridische controle.
 
 De site toont geen juridische bedrijfsnaam, vestigingsadres, KvK-nummer of telefoonnummer. Die velden bestaan niet meer in de configuratie.
 
@@ -95,6 +98,13 @@ npm run lint
 npm run typecheck
 npm test
 npm run build:test
+npm run build:production
 ```
 
-`npm test` gebruikt expliciete testconfiguratie, maakt een deploymentbuild en test pagina’s, metadata, headers, launchchecks en de leadendpoint met gestubde webhooks. Een echte `npm run build` hoort zonder alle productievariabelen te mislukken; dat is de bedoelde launchbeveiliging.
+`npm test` gebruikt expliciete testconfiguratie, maakt een deploymentbuild en test pagina’s, metadata, headers, launchchecks en de leadendpoint met gestubde webhooks. `npm run build:production` hoort zonder alle gecontroleerde productievariabelen te mislukken; `npm run build` is bewust geschikt voor CI en previews.
+
+## Branches en deployment
+
+`dev` is de ontwikkelbranch en `main` bevat uitsluitend de gevalideerde productiebron. De GitHub Actions-workflow voert lint, typecheck, tests en een build uit op beide branches en op pull requests. Hij publiceert niet zelfstandig.
+
+De site wordt uitsluitend via OpenAI Sites gepubliceerd. Daardoor blijft iedere productieversie gekoppeld aan één controleerbare `main`-commit en kan een eerdere versie vanuit Sites worden teruggezet. Zie [`docs/seo-benchmark-2026-08-25.md`](./docs/seo-benchmark-2026-08-25.md) voor de actuele zoekbenchmark, het paginamodel en het 30/60/90-dagenplan.

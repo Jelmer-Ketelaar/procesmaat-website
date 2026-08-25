@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
     "build": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
-    "build:production": "NEXT_PUBLIC_DEPLOYMENT_ENV=production NEXT_PUBLIC_SITE_URL=https://procesmaatsoftware.nl npm run build",
+    "check:production": "node scripts/check-production-readiness.mjs",
+    "build:production": "npm run check:production && NEXT_PUBLIC_DEPLOYMENT_ENV=production NEXT_PUBLIC_SITE_URL=https://procesmaatsoftware.nl npm run build",
     "build:test": "PROCESMAAT_BUILD_MODE=test NEXT_PUBLIC_DEPLOYMENT_ENV=test NEXT_PUBLIC_SITE_URL=https://procesmaat.test npm run build",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "PROCESMAAT_BUILD_MODE=test NEXT_PUBLIC_DEPLOYMENT_ENV=test NEXT_PUBLIC_SITE_URL=https://procesmaat.test npm run build && node --test tests/*.test.mjs",
