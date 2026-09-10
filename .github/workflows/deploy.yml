@@ -33,7 +33,7 @@ jobs:
       - name: Build voor productie
         env:
           NEXT_PUBLIC_DEPLOYMENT_ENV: production
-          NEXT_PUBLIC_SITE_URL: https://www.procesmaatsoftware.nl
+          NEXT_PUBLIC_SITE_URL: https://procesmaatsoftware.nl
           NEXT_PUBLIC_SITE_EMAIL: info@procesmaatsoftware.nl
         run: npm run build
 

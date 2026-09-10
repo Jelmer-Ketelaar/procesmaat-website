@@ -6,9 +6,10 @@ import { siteConfig } from "@/lib/site-config";
 import { TrackedLink } from "./tracked-link";
 
 const navItems = [
+  ["AI-automatisering", "/ai-automatisering"],
   ["Diensten", "/diensten"],
   ["Werkwijze", "/#werkwijze"],
-  ["Veelgestelde vragen", "/#veelgestelde-vragen"],
+
 ] as const;
 
 export function SiteHeader() {
@@ -19,7 +20,17 @@ export function SiteHeader() {
     if (!menuOpen) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const resize = () => { if (window.innerWidth > 900) setMenuOpen(false); };
+    window.addEventListener("resize", resize);
     const close = (event: KeyboardEvent) => {
+      if (event.key === "Tab") {
+        const header = menuButtonRef.current?.closest("header");
+        const focusable = Array.from(header?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []).filter((item) => item.getClientRects().length > 0);
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
       if (event.key !== "Escape") return;
       setMenuOpen(false);
       requestAnimationFrame(() => menuButtonRef.current?.focus());
@@ -27,6 +38,7 @@ export function SiteHeader() {
     document.addEventListener("keydown", close);
     return () => {
       document.removeEventListener("keydown", close);
+      window.removeEventListener("resize", resize);
       document.body.style.overflow = previousOverflow;
     };
   }, [menuOpen]);

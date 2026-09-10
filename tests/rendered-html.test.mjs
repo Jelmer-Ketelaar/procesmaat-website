@@ -80,7 +80,7 @@ test("server-renders the complete Dutch landing page with the accessible form co
   const html = await response.text();
   assert.match(html, /<html lang="nl">/i);
   assert.match(html, /Handwerk eruit\./);
-  assert.match(html, /Maatwerksoftware en koppelingen voor mkb-teams/);
+  assert.match(html, /AI-automatisering voor het mkb/);
   assert.match(html, /Vraag de gratis scan aan/);
   assert.match(html, /Ga naar de hoofdinhoud/);
   assert.match(html, /<input(?=[^>]*name="name")(?=[^>]*required="")[^>]*>/i);
@@ -98,7 +98,7 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /property="og:image:width" content="1200"/i);
   assert.match(html, /property="og:image:height" content="629"/i);
   assert.match(html, /name="robots" content="noindex, nofollow"/i);
-  assert.match(html, /Procesautomatisering voor het mkb \| ProcesMaat/);
+  assert.match(html, /AI en automatisering voor het mkb \| ProcesMaat/);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /"@type":"Organization"/);
   assert.match(html, /"@type":"FAQPage"/);
@@ -106,6 +106,8 @@ test("home metadata uses one validated test origin and the actual social-card di
 
 test("commercial service pages render unique search metadata, useful content and structured data", async () => {
   const pages = [
+    ["/ai-automatisering", "AI-automatisering voor bedrijven en het mkb", "Waar kan AI jouw team werk uit handen nemen"],
+    ["/ai-agents", "AI-agent laten bouwen voor je bedrijf", "Wanneer is een AI-agent een logische stap"],
     ["/procesautomatisering", "Procesautomatisering voor het mkb", "Wanneer is een proces geschikt voor automatisering"],
     ["/maatwerksoftware", "Maatwerksoftware voor het mkb", "Wanneer past maatwerksoftware bij je bedrijf"],
     ["/systeemkoppelingen", "Systemen koppelen en API-koppelingen", "Wanneer helpt een systeemkoppeling"],
@@ -162,6 +164,8 @@ test("sitemap uses the same configured public origin", async () => {
   const xml = await response.text();
   assert.match(xml, /https:\/\/procesmaat\.test\/?</);
   assert.match(xml, /https:\/\/procesmaat\.test\/diensten/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/ai-automatisering/);
+  assert.match(xml, /https:\/\/procesmaat\.test\/ai-agents/);
   assert.match(xml, /https:\/\/procesmaat\.test\/procesautomatisering/);
   assert.match(xml, /https:\/\/procesmaat\.test\/maatwerksoftware/);
   assert.match(xml, /https:\/\/procesmaat\.test\/systeemkoppelingen/);
@@ -398,4 +402,20 @@ test("production redirects the www host permanently to the canonical apex host",
   assert.match(response.headers.get("cache-control") ?? "", /max-age=3600/);
   assert.match(response.headers.get("strict-transport-security") ?? "", /max-age=31536000/);
   assertSecurityHeaders(response);
+});
+
+
+test("AI landing page exposes useful demo content and crawlable service links without JavaScript", async () => {
+  const html = await (await request("/")).text();
+  assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
+  assert.match(html, /Laat je bedrijf/);
+  assert.match(html, /Illustratie met fictieve gegevens/);
+  assert.match(html, /Conceptantwoord \+ taak in je CRM/);
+  assert.match(html, /aria-pressed="true"/);
+  assert.match(html, /href="\/ai-automatisering"/);
+  assert.match(html, /href="\/ai-agents"/);
+});
+
+test("unknown URLs return a real 404 rather than a search-indexable success page", async () => {
+  assert.equal((await request("/dit-bestaat-niet")).status, 404);
 });

@@ -1,6 +1,6 @@
 # ProcesMaat website
 
-Nederlandstalige B2B-landingspagina voor maatwerksoftware, systeemkoppelingen, dashboards en automatisering. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten; 
+Nederlandstalige B2B-website voor AI-automatisering, AI-agents, maatwerksoftware en systeemkoppelingen. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten;
 
 ## Lokaal starten
 
@@ -97,4 +97,22 @@ npm test
 npm run build:test
 ```
 
-`npm test` gebruikt expliciete testconfiguratie, maakt een deploymentbuild en test pagina’s, metadata, headers, launchchecks en de leadendpoint met gestubde webhooks. Een echte `npm run build` hoort zonder alle productievariabelen te mislukken; dat is de bedoelde launchbeveiliging.
+`npm test` gebruikt expliciete testconfiguratie, maakt een deploymentbuild en test pagina’s, metadata, headers, launchchecks en de leadendpoint met gestubde webhooks. Een gewone `npm run build` gebruikt de publieke standaardconfiguratie en mag zonder aanvullende productievariabelen slagen. De leadendpoint controleert de afleverconfiguratie tijdens de aanvraag; een geslaagde build bewijst daarom niet dat echte aanvragen al kunnen worden afgeleverd.
+
+
+## AI-positionering en organische vindbaarheid
+
+- De homepage geeft een breed overzicht; `/ai-automatisering` richt zich op het automatiseren van tekst- en documentprocessen, `/ai-agents` op gerichte assistenten met kennisbronnen en begrensde hulpmiddelen.
+- De productiebuild gebruikt `https://procesmaatsoftware.nl`, gelijk aan de bestaande www-redirect. Iedere dienst heeft een eigen canonical, titel, beschrijving, zichtbare FAQ en Service/Breadcrumb-gegevens. De sitemap wordt uit dezelfde dienstenlijst opgebouwd; wijzig redactionele datums alleen bij echte inhoudelijke wijzigingen.
+- De interactieve homepagevoorbeelden zijn lokale demonstraties met fictieve gegevens. Ze doen geen modelaanroepen, slaan niets op en presenteren geen gemeten klantresultaten. De eerste demonstratie is ook server-rendered leesbaar.
+- Bestaande social-previewafbeeldingen, leadvalidatie, webhookaflevering en privacyvriendelijke analytics blijven behouden. Er zijn geen advertentietrackers toegevoegd.
+
+### Na publicatie
+
+1. Controleer in Google Search Console de domeineigenschap `procesmaatsoftware.nl` en dien `https://procesmaatsoftware.nl/sitemap.xml` in. De bestaande optionele `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` ondersteunt verificatie met een HTML-metatag voor een URL-prefixeigenschap; een domeineigenschap vereist DNS-verificatie.
+2. Inspecteer de homepage en beide AI-pagina’s met URL-inspectie en controleer indexeerbaarheid, gekozen canonical en gerenderde inhoud. Dien belangrijke nieuwe URL’s zo nodig in voor indexering.
+3. Beoordeel prestaties per pagina en zoekvraag: vertoningen, klikken, CTR en relevante aanvragen. Geen ranking of tijdwinst is vooraf gegarandeerd.
+4. Publiceer echte praktijkcases zodra daarvoor bewijs en toestemming beschikbaar zijn. Beschrijf het oorspronkelijke probleem, de aanpak en gemeten uitkomsten inclusief beperkingen. Voeg geen verzonnen referenties of resultaten toe.
+5. Meet mobiele praktijkprestaties zodra er voldoende verkeer is; een succesvolle build is geen Core Web Vitals-meting.
+
+Bronnen: [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) en [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features). Voor AI-zoekfuncties blijven de normale SEO-principes gelden; extra speciale AI-markup is niet nodig.

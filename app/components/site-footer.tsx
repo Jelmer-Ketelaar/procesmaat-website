@@ -8,10 +8,12 @@ export function SiteFooter() {
         <Link className="brand brand-light" href="/" aria-label={`${siteConfig.name} — homepage`}>
           <span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span>
         </Link>
-        <p>Procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams.</p>
+        <p>AI-automatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams.</p>
       </div>
       <div className="footer-column">
         <span>DIENSTEN</span>
+        <Link href="/ai-automatisering">AI-automatisering</Link>
+        <Link href="/ai-agents">AI-agents</Link>
         <Link href="/procesautomatisering">Procesautomatisering</Link>
         <Link href="/maatwerksoftware">Maatwerksoftware</Link>
         <Link href="/systeemkoppelingen">Systeemkoppelingen</Link>
