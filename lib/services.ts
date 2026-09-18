@@ -1,4 +1,4 @@
-export type ServiceSlug = "procesautomatisering" | "maatwerksoftware" | "systeemkoppelingen";
+export type ServiceSlug = "ai-automatisering" | "ai-agents" | "procesautomatisering" | "maatwerksoftware" | "systeemkoppelingen";
 
 export type ServicePageContent = {
   slug: ServiceSlug;
@@ -21,6 +21,98 @@ export type ServicePageContent = {
 };
 
 export const services: Record<ServiceSlug, ServicePageContent> = {
+  "ai-automatisering": {
+    slug: "ai-automatisering",
+    shortTitle: "AI-automatisering",
+    eyebrow: "AI die meewerkt in je bedrijf",
+    title: "AI-automatisering die verder gaat dan een chatvenster",
+    metaTitle: "AI-automatisering voor bedrijven en het mkb | ProcesMaat",
+    metaDescription: "AI-automatisering voor je bedrijf: verwerk documenten, bereid klantantwoorden voor en koppel je systemen. Begin met een gratis procesgerichte scan.",
+    intro: "AI-automatisering verbindt het begrijpen van tekst en documenten met de handelingen die daarop volgen. Denk aan een aanvraag die wordt herkend, gecontroleerd en klaargezet in je CRM. ProcesMaat bouwt zulke werkstromen voor mkb-teams, met menselijke controle op de momenten die ertoe doen.",
+    fitTitle: "Waar kan AI jouw team werk uit handen nemen?",
+    fitIntro: "AI is vooral interessant wanneer informatie iedere keer anders binnenkomt, terwijl het vervolg herkenbaar is. Begin bij een terugkerende taak waar lezen, ordenen of voorbereiden veel aandacht kost.",
+    fitSignals: [
+      "Klantvragen komen vrij geformuleerd binnen en moeten eerst worden gelezen en verdeeld.",
+      "Gegevens staan in verschillende soorten pdf’s, facturen, e-mails of formulieren.",
+      "Medewerkers schrijven steeds opnieuw vergelijkbare antwoorden en samenvattingen.",
+      "Informatie wordt eerst uitgezocht en daarna handmatig overgenomen in CRM of backoffice.",
+      "Er zijn voorbeelden beschikbaar waarmee de uitkomst goed of fout kan worden beoordeeld.",
+    ],
+    explanationTitle: "AI begrijpt de invoer. De werkstroom regelt het vervolg.",
+    explanation: [
+      "Stel: een potentiële klant mailt een aanvraag. AI haalt het onderwerp, de gewenste dienstverlening en ontbrekende gegevens uit de tekst. Vaste regels controleren of de informatie compleet is. Een API-koppeling kan vervolgens een taak en conceptantwoord klaarzetten. Je medewerker beoordeelt het voorstel voordat er iets naar de klant gaat. Zo wordt een losse AI-uitkomst onderdeel van een bruikbaar proces.",
+      "We kiezen eerst één afgebakende taak en vergelijken de uitkomsten met representatieve voorbeelden uit jouw praktijk. Daarbij tellen niet alleen goede antwoorden mee: we bekijken ook foutieve interpretaties, ontbrekende informatie, verwerkingstijd en kosten per verwerking. Vaste berekeningen, toegangsrechten en goedkeuringen blijven buiten het oordeel van het taalmodel.",
+      "Voor de bouw spreken we af welke gegevens een model mag ontvangen en welke leverancier daarvoor geschikt is. We bepalen wat er wordt bewaard, welke toegang nodig is en wanneer een medewerker moet overnemen. Een onzekere uitkomst wordt geen automatische toezegging, betaling of wijziging zonder de afgesproken controles.",
+    ],
+    deliverablesTitle: "Van eerste proef naar een werkbare oplossing",
+    deliverables: [
+      { title: "Eén duidelijke toepassing", text: "Een afgebakende taak, gewenste uitkomst en set praktijkvoorbeelden waarmee we de kwaliteit toetsen." },
+      { title: "Aansluiting op je systemen", text: "De uitkomst komt terecht waar je team ermee werkt, voor zover de beschikbare koppelingen dat toelaten." },
+      { title: "Controle vóór een actie", text: "Validatie, broninformatie waar beschikbaar en een goedkeuringsstap voor acties die dat nodig hebben." },
+      { title: "Zicht op werking en kosten", text: "Afspraken over foutafhandeling, gebruikskosten, onderhoud en het opnieuw beoordelen van modeluitkomsten." },
+    ],
+    examplesTitle: "Praktische voorbeelden van AI-automatisering",
+    examples: [
+      { title: "E-mails sorteren en voorbereiden", text: "Herken onderwerp en urgentie, haal de benodigde gegevens uit een bericht en zet een conceptantwoord klaar. Een collega blijft verantwoordelijk voor de verzending." },
+      { title: "Documentgegevens overnemen", text: "Lees velden uit documenten en vergelijk ze met vaste validatieregels. Ontbrekende velden of afwijkende bedragen gaan naar een medewerker." },
+      { title: "Gesprekken omzetten in acties", text: "Maak van beschikbare gespreksnotities een samenvatting en voorgestelde taken. Laat de verantwoordelijke de acties controleren voordat ze worden ingepland." },
+      { title: "Aanvragen voorbereiden voor je CRM", text: "Zet ongestructureerde aanvragen om naar een voorstel met vaste velden. Controleer bestaande contacten en volledigheid voordat gegevens worden opgeslagen." },
+    ],
+    faq: [
+      { question: "Wat is het verschil tussen AI en gewone automatisering?", answer: "Gewone automatisering volgt vooraf bepaalde regels en is geschikt voor vaste controles en gegevensoverdracht. AI kan helpen bij variabele tekst of documenten, maar kan ook fouten maken. Een betrouwbare oplossing combineert de twee: AI voor interpretatie, vaste logica voor controle en duidelijke bevoegdheden voor vervolgacties." },
+      { question: "Wat kost AI-automatisering voor een mkb-bedrijf?", answer: "De investering hangt af van de taak, het aantal koppelingen, het volume en de controles die nodig zijn. Naast de bouw kunnen er kosten zijn voor modelgebruik, hosting en onderhoud. Tijdens de gratis scan bakenen we de toepassing af; daarna kan een voorstel met eenmalige en terugkerende kosten worden gemaakt." },
+      { question: "Hoe weten we of de automatisering tijd bespaart?", answer: "Meet eerst het huidige aantal verwerkingen en de gemiddelde behandeltijd. Vergelijk die met de nieuwe werkwijze, inclusief controle en herstelwerk. Een kortere modelverwerking alleen is geen bewijs van tijdwinst. Ook de kwaliteit en totale proceskosten tellen mee." },
+      { question: "Kan dit met onze bestaande software?", answer: "Dat onderzoeken we vooraf. Als je software bruikbare API’s, webhooks of importmogelijkheden biedt, kan die vaak blijven staan. Leveranciersrechten, abonnementen en technische beperkingen bepalen welke koppeling mogelijk is." },
+      { question: "Wat als de AI een fout maakt?", answer: "Dat moet onderdeel van het ontwerp zijn. We controleren verplichte velden, begrenzen acties en laten gevoelige beslissingen beoordelen. Afwijkende resultaten krijgen een route naar een medewerker. Testvoorbeelden helpen om fouten zichtbaar te maken voordat een proces breder wordt ingezet." },
+      { question: "Moeten we meteen ons hele bedrijf automatiseren?", answer: "Nee. Start met één proces dat vaak terugkomt en waarvan je de kwaliteit kunt beoordelen. Pas wanneer de aanpak in de praktijk werkt, is uitbreiding naar andere processen zinvol." },
+    ],
+  },
+  "ai-agents": {
+    slug: "ai-agents",
+    shortTitle: "AI-agents",
+    eyebrow: "Een gerichte assistent voor je team",
+    title: "Een AI-agent laten bouwen die jouw werkproces kent",
+    metaTitle: "AI-agent laten bouwen voor je bedrijf | ProcesMaat",
+    metaDescription: "Laat een gerichte AI-agent bouwen voor interne kennis, klantvragen of taakvoorbereiding. Met systeemkoppelingen, beperkte toegang en menselijke controle.",
+    intro: "Een AI-agent is software die met een taalmodel informatie kan opzoeken en toegestane hulpmiddelen kan gebruiken om een taak uit te voeren. ProcesMaat ontwerpt agents rondom één bedrijfsproces: met eigen kennisbronnen, beperkte toegang en heldere afspraken over wat de agent zelfstandig mag doen.",
+    fitTitle: "Wanneer is een AI-agent een logische stap?",
+    fitIntro: "Een agent is nuttig als de juiste vervolgstap afhangt van de vraag en beschikbare informatie. Voor een vaste reeks handelingen is een gewone automatisering vaak eenvoudiger te beheersen.",
+    fitSignals: [
+      "Medewerkers zoeken herhaaldelijk informatie op in dezelfde werkinstructies of documenten.",
+      "Een klantvraag vraagt om gegevens uit meerdere toegankelijke bronnen.",
+      "De taak heeft een duidelijke einduitkomst, maar de route verschilt per aanvraag.",
+      "Je kunt afbakenen welke gegevens en handelingen de agent nodig heeft.",
+      "Een medewerker kan antwoorden en voorgestelde acties beoordelen.",
+    ],
+    explanationTitle: "Geef een agent een taak. En duidelijke grenzen.",
+    explanation: [
+      "Een interne kennisassistent kan bijvoorbeeld de juiste werkinstructie zoeken bij een vraag van een collega. Het antwoord verwijst naar de gebruikte bron, zodat de collega de informatie kan controleren. Als de bronnen niet voldoende informatie geven, hoort de agent dat te melden en de vraag door te zetten. Hij hoeft geen antwoord te verzinnen om de taak af te ronden.",
+      "Een agent die systemen gebruikt vraagt meer ontwerp dan een chatinterface. We beperken de hulpmiddelen en toegangsrechten tot de afgesproken taak. Alleen lezen is het uitgangspunt als schrijven niet nodig is. Een voorgenomen wijziging of uitgaand bericht kan eerst als voorstel aan een medewerker worden getoond. We begrenzen ook het aantal stappen en het gebruik, zodat een agent niet eindeloos blijft proberen.",
+      "Tijdens een prototype toetsen we gewone vragen én lastige situaties: verouderde documenten, tegenstrijdige informatie, ontbrekende bronnen en instructies in binnengekomen tekst die de agent niet mag volgen. De broninhoud mag geen nieuwe bevoegdheden geven. Voor ingebruikname spreken we af hoe fouten worden gemeld en wie de kennisbronnen actueel houdt.",
+    ],
+    deliverablesTitle: "Wat hoort bij een bruikbare bedrijfsagent?",
+    deliverables: [
+      { title: "Een concrete opdracht", text: "Duidelijk vastgelegd welke taak de agent ondersteunt en wanneer hij moet stoppen of hulp vragen." },
+      { title: "Geselecteerde kennisbronnen", text: "Alleen de documenten en systeemgegevens die nodig zijn, met afspraken over actualiteit en toegang." },
+      { title: "Begrensde hulpmiddelen", text: "Expliciete rechten per actie, met goedkeuring voor stappen waarvoor menselijke regie nodig is." },
+      { title: "Een toetsbare uitkomst", text: "Praktijkvragen, broncontrole en inzicht in afwijkingen om te bepalen of de agent bruikbaar blijft." },
+    ],
+    examplesTitle: "Waarvoor kun je een AI-agent inzetten?",
+    examples: [
+      { title: "Interne kennisassistent", text: "Vind antwoorden in afgesproken werkinstructies en documentatie. Collega’s krijgen een antwoord met verwijzing naar de relevante bron." },
+      { title: "Voorbereiding van klantvragen", text: "Verzamel toegestane klant- en procesinformatie en maak een concept voor de medewerker die de aanvraag behandelt." },
+      { title: "Assistent voor projectoverdracht", text: "Breng beschikbare projectinformatie bij elkaar, signaleer ontbrekende onderdelen en bereid een overdrachtsvoorstel voor." },
+      { title: "Gerichte taakvoorbereiding", text: "Zoek benodigde informatie op en stel een vervolgstap voor in je werkproces. Je team keurt wijzigingen goed voordat ze worden uitgevoerd." },
+    ],
+    faq: [
+      { question: "Wat is het verschil tussen een chatbot en een AI-agent?", answer: "Een chatbot is vooral een gespreksinterface. Een agent kan daarnaast toegestane hulpmiddelen kiezen en gebruiken, zoals een zoekfunctie of systeemkoppeling. De termen overlappen in de praktijk. Belangrijker is welke taken de oplossing uitvoert en welke rechten en controles daarbij horen." },
+      { question: "Kan een AI-agent zelfstandig e-mails sturen of gegevens wijzigen?", answer: "Technisch kan dat met passende koppelingen, maar het is geen standaardinstelling. Per actie bepalen we wat verantwoord is. Een concept of wijzigingsvoorstel met menselijke goedkeuring is vaak een passende eerste stap." },
+      { question: "Kan de agent met onze eigen documenten werken?", answer: "Ja, als de documenten toegankelijk en geschikt zijn. We kijken naar de structuur, actualiteit en toegangsrechten. De agent mag geen informatie tonen waarvoor de gebruiker geen toestemming heeft. Bronverwijzingen helpen om antwoorden te controleren." },
+      { question: "Wat kost een AI-agent laten bouwen?", answer: "Dat hangt af van de kennisbronnen, koppelingen en toegestane acties. Een afgebakende kennisassistent vraagt een andere aanpak dan een agent die meerdere systemen wijzigt. Naast bouw en inrichting moeten modelgebruik, hosting en beheer in het voorstel worden meegenomen." },
+      { question: "Vervangt een AI-agent onze medewerkers?", answer: "De toepassingen die we hier beschrijven ondersteunen medewerkers bij zoeken, lezen en voorbereiden. Verantwoordelijkheid, uitzonderingen en goedkeuringen blijven expliciet belegd. We ontwerpen rondom het werk dat het team beter wil kunnen doen." },
+    ],
+  },
+
   procesautomatisering: {
     slug: "procesautomatisering",
     shortTitle: "Procesautomatisering",

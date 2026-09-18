@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { knowledgeList } from "@/lib/knowledge";
 import { siteConfig } from "@/lib/site-config";
+import { serviceList } from "@/lib/services";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date("2026-08-25");

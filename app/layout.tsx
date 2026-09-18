@@ -2,10 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const title = "Procesautomatisering voor het mkb | ProcesMaat";
-const description = "Minder handwerk met procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams. Vraag een gratis automatiseringsscan aan.";
+const title = "AI en automatisering voor het mkb | ProcesMaat";
+const description = "Laat AI, software en systeemkoppelingen het terugkerende werk doen. ProcesMaat bouwt automatisering voor het mkb. Ontdek de kansen in een gratis scan.";
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f3f0e8" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#101923" };
 
 const socialImage = new URL("/og.png", siteConfig.siteUrl).toString();
 

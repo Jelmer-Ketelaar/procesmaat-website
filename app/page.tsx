@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AutomationDemo } from "@/app/components/automation-demo";
 import { JsonLd } from "@/app/components/json-ld";
 import { LeadForm } from "@/app/components/lead-form";
 import { SiteFooter } from "@/app/components/site-footer";
@@ -9,8 +10,8 @@ import { knowledgeList } from "@/lib/knowledge";
 import { siteConfig } from "@/lib/site-config";
 import { graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
 
-const homeTitle = "Procesautomatisering voor het mkb | ProcesMaat";
-const homeDescription = "Minder handwerk met procesautomatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams. Vraag een gratis automatiseringsscan aan.";
+const homeTitle = "AI en automatisering voor het mkb | ProcesMaat";
+const homeDescription = "Laat AI, software en systeemkoppelingen het terugkerende werk doen. ProcesMaat bouwt automatisering voor het mkb. Ontdek de kansen in een gratis scan.";
 
 export default function Home() {
   return (
@@ -22,31 +23,23 @@ export default function Home() {
       ])} />
       <SiteHeader />
       <main id="main-content">
-        <section className="hero" id="top">
+        <section className="hero hero-ai" id="top">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> Maatwerksoftware en koppelingen voor mkb-teams</p>
-            <h1>Handwerk eruit.<br /><em>Grip</em> terug.</h1>
-            <p className="hero-intro">We koppelen bestaande systemen en bouwen praktische software voor processen die bij mkb-teams van ongeveer 5–50 medewerkers blijven hangen in e-mail, spreadsheets en handmatig overtypen. Eerst onderzoeken we wat eenvoudiger kan. Pas daarna bepalen we of automatisering zinvol is.</p>
+            <p className="eyebrow"><span /> AI-automatisering voor het mkb</p>
+            <h1>Laat je bedrijf<br /><em>vooruitwerken.</em></h1>
+            <p className="hero-intro">Van een volle inbox naar opgevolgde aanvragen. Van losse documenten naar bruikbare gegevens. Wij bouwen AI-automatisering en software die het werk ertussen overneemt. Jij houdt de regie.</p>
             <div className="hero-actions">
               <TrackedLink className="button" href="#scan" event="cta_click" location="hero">Vraag de gratis scan aan <span aria-hidden="true">&#8599;</span></TrackedLink>
-              <a className="text-link" href="#mogelijkheden">Bekijk wat er mogelijk is <span aria-hidden="true">&#8595;</span></a>
+              <a className="text-link" href="#mogelijkheden">Ontdek de mogelijkheden <span aria-hidden="true">&#8595;</span></a>
             </div>
-            <p className="reassurance">Eerst onderzoeken <i /> Geen standaardpakket <i /> Direct met de bouwer</p>
+            <p className="reassurance">30 minuten <i /> Vrijblijvend <i /> Direct met de bouwer</p>
           </div>
 
-          <div className="process-stage" aria-label="Voorbeeld van een geautomatiseerde werkstroom">
-            <div className="stage-topline"><span>Proces 04 / Offerte-opvolging</span><span className="live"><i /> Actief</span></div>
-            <div className="stage-path" aria-hidden="true">
-              <span className="path-line" />
-              <div className="process-node node-one"><b>01</b><span>Aanvraag<br />ontvangen</span></div>
-              <div className="process-node node-two"><b>02</b><span>Gegevens<br />controleren</span></div>
-              <div className="process-node node-three"><b>03</b><span>Taak<br />aanmaken</span></div>
-              <div className="process-node node-four"><b>04</b><span>Opvolging<br />versturen</span></div>
-              <span className="flow-dot" />
-            </div>
-            <div className="stage-metrics"><div><span>INVOER</span><strong>E-mail + formulier</strong></div><div><span>REGELS</span><strong>4 controles</strong></div><div><span>UITVOER</span><strong>CRM + opvolging</strong></div></div>
-          </div>
+          <AutomationDemo />
+
         </section>
+
+        <nav className="expertise-strip" aria-label="Onze expertise"><span>VAN IDEE NAAR DAGELIJKS GEBRUIK</span><Link href="/ai-automatisering">AI-automatisering</Link><Link href="/ai-agents">AI-agents</Link><Link href="/systeemkoppelingen">Systeemkoppelingen</Link><Link href="/maatwerksoftware">Maatwerksoftware</Link></nav>
 
         <section className="problem-section section-rule" aria-labelledby="problem-title">
           <div className="section-label"><span>01</span><p>Herkenbaar?</p></div>
@@ -61,7 +54,7 @@ export default function Home() {
           <div className="section-label section-label-light"><span>02</span><p>Mogelijkheden</p></div>
           <div className="examples-heading">
             <h2 id="examples-title">Van losse handelingen naar één <em>slimme werkwijze.</em></h2>
-            <p>Dit zijn voorbeelden van processen die vaak geschikt zijn voor automatisering — geen klantcases of kant-en-klare pakketten. Wat zinvol is, hangt af van jouw proces.</p>
+            <p>Waar zit de grootste kans voor jouw team? Ontdek hoe AI, koppelingen en maatwerk kunnen samenwerken. De voorbeelden hieronder laten mogelijkheden zien; de precieze invulling bepalen we met jou.</p>
           </div>
           <div className="examples-grid">
             {automationExamples.map((example) => (
@@ -76,7 +69,7 @@ export default function Home() {
 
         <section className="transformation-section section-rule" aria-labelledby="transformation-title">
           <div className="section-label"><span>03</span><p>Voor & na</p></div>
-          <div className="transformation-heading"><p className="eyebrow"><span /> Eén proces, anders ingericht</p><h2 id="transformation-title">Van losse acties naar een <em>beheerste stroom.</em></h2></div>
+          <div className="transformation-heading"><p className="eyebrow"><span /> Eén proces, anders ingericht</p><h2 id="transformation-title">Handwerk eruit.<br /><em>Grip terug.</em></h2></div>
           <div className="workflow-compare">
             <div className="workflow-side workflow-before">
               <div className="workflow-title"><span>VOOR</span><strong>Versnipperd handwerk</strong></div>
@@ -153,12 +146,12 @@ export default function Home() {
         <section className="faq-section section-rule" id="veelgestelde-vragen" aria-labelledby="faq-title">
           <div className="section-label"><span>07</span><p>Veelgestelde vragen</p></div>
           <div className="faq-heading"><h2 id="faq-title">Eerst weten<br />waar je aan toe bent.</h2><p>Staat je vraag er niet tussen? Tijdens de gratis scan kijken we graag naar jouw situatie.</p></div>
-          <div className="faq-list">{faqs.map((faq, index) => <details key={faq.question}><summary><span>0{index + 1}</span><b>{faq.question}</b><i aria-hidden="true">+</i></summary><div><p>{faq.answer}</p></div></details>)}</div>
+          <div className="faq-list">{faqs.map((faq, index) => <details key={faq.question}><summary><span>{String(index + 1).padStart(2, "0")}</span><b>{faq.question}</b><i aria-hidden="true">+</i></summary><div><p>{faq.answer}</p></div></details>)}</div>
         </section>
 
         <section className="scan-section" id="scan" aria-labelledby="scan-title">
           <div className="scan-intro">
-            <p className="eyebrow light"><span /> Gratis automatiseringsscan — 30 minuten</p><h2 id="scan-title">Waar blijft bij jullie tijd liggen?</h2><p>Vertel kort welk proces steeds terugkomt. In de scan onderzoeken we eerst wat er werkelijk gebeurt en of automatiseren zinvol is — zonder verkooppraat of verplichting.</p>
+            <p className="eyebrow light"><span /> Gratis automatiseringsscan — 30 minuten</p><h2 id="scan-title">Waar blijft bij jullie tijd liggen?</h2><p>Je hoeft nog niet te weten welke techniek je nodig hebt. Vertel waar het werk vastloopt. In 30 minuten bespreken we één proces, de kansen voor automatisering en een haalbare eerste stap.</p>
             <ul><li><i>✓</i><span>Eén terugkerend proces bespreken</span></li><li><i>✓</i><span>Belangrijkste stappen en uitzonderingen benoemen</span></li><li><i>✓</i><span>Een eerste haalbaarheidsinschatting maken</span></li><li><i>✓</i><span>Eerlijk aangeven als automatiseren niet zinvol is</span></li><li><i>✓</i><span>Een mogelijke vervolgstap bespreken</span></li></ul>
             <div className="booking-alternative"><span>Na je aanvraag nemen we per e-mail contact op om samen een geschikt moment te kiezen.</span></div>
           </div>

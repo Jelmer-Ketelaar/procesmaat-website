@@ -49,6 +49,8 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
             </div>
           </header>
 
+          <nav className="service-jump-links" aria-label="Op deze pagina"><a href="#service-fit-title">Past dit bij ons?</a><a href="#service-explanation-title">Aanpak</a><a href="#service-examples-title">Voorbeelden</a><a href="#service-faq-title">Kosten & vragen</a></nav>
+
           <section className="service-fit section-rule" aria-labelledby="service-fit-title">
             <div className="section-label"><span>01</span><p>Herkenning</p></div>
             <div className="service-section-heading">

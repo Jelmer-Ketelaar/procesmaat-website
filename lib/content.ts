@@ -7,12 +7,14 @@ export const problemItems = [
 ] as const;
 
 export const automationExamples = [
+  { number: "AI", title: "AI in je dagelijkse werk", text: "Klantvragen herkennen, documenten begrijpen en concepten klaarzetten. Verbonden met de systemen waarin je team werkt.", tag: "AI-automatisering", href: "/ai-automatisering" },
+  { number: "AG", title: "Een AI-agent voor je team", text: "Een gerichte assistent die informatie opzoekt en vervolgstappen voorbereidt, met duidelijke grenzen en jouw goedkeuring.", tag: "AI-agents", href: "/ai-agents" },
   {
     number: "01",
     title: "Facturen & documenten",
     text: "Bestanden uitlezen, gegevens controleren en klaarzetten in je boekhouding of backoffice.",
     tag: "Verwerking",
-    href: "/procesautomatisering",
+    href: "/ai-automatisering",
   },
   {
     number: "02",
@@ -45,6 +47,7 @@ export const processSteps = [
 ] as const;
 
 export const faqs = [
+  { question: "Wat is AI-automatisering voor bedrijven?", answer: "AI-automatisering combineert het begrijpen van tekst en documenten met vaste processtappen. Bijvoorbeeld: AI herkent het onderwerp van een klantaanvraag, een koppeling zet de gegevens klaar in je CRM en een medewerker keurt het antwoord goed. Zo krijgt AI een concrete plek in het dagelijkse werk." },
   {
     question: "Wat kan er geautomatiseerd worden?",
     answer: "Vooral terugkerende processen met duidelijke invoer, beslisregels en uitvoer zijn kansrijk. Denk aan documentverwerking, gegevens overnemen, controles, meldingen, rapportages en opvolgtaken. Tijdens de scan kijken we ook naar uitzonderingen en risico’s.",

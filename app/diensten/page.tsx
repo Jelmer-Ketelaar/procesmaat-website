@@ -6,8 +6,8 @@ import { pageMetadata } from "@/lib/metadata";
 import { serviceList } from "@/lib/services";
 import { breadcrumbSchema, graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
 
-const title = "Procesautomatisering en maatwerksoftware | ProcesMaat";
-const description = "Ontdek hoe ProcesMaat mkb-teams helpt met procesautomatisering, maatwerksoftware en systeemkoppelingen. Eerst het proces begrijpen, dan gericht bouwen.";
+const title = "AI, automatisering en maatwerksoftware | ProcesMaat";
+const description = "Ontdek hoe ProcesMaat mkb-teams helpt met AI-automatisering, AI-agents, maatwerksoftware en systeemkoppelingen. Eerst het proces begrijpen, dan gericht bouwen.";
 
 export const metadata = pageMetadata({ title, description, path: "/diensten" });
 
@@ -27,7 +27,7 @@ export default function DienstenPage() {
           <header className="services-hero">
             <p className="eyebrow"><span /> Diensten voor het mkb</p>
             <h1>Van terugkerend handwerk naar een beheerste digitale werkwijze</h1>
-            <p>ProcesMaat onderzoekt waar werk blijft liggen en kiest daarna de kleinste passende oplossing: een proces automatiseren, gerichte maatwerksoftware bouwen of bestaande systemen koppelen.</p>
+            <p>ProcesMaat onderzoekt waar werk blijft liggen en kiest daarna de kleinste passende oplossing: AI inzetten voor tekst en documenten, een proces automatiseren, maatwerksoftware bouwen of bestaande systemen koppelen.</p>
           </header>
           <section className="services-overview" aria-labelledby="services-overview-title">
             <div className="section-label section-label-light"><span>01</span><p>Mogelijkheden</p></div>
@@ -51,6 +51,7 @@ export default function DienstenPage() {
             <div>
               <h2 id="services-choice-title">Wat is de juiste route?</h2>
               <div className="services-choice-grid">
+                <article><h3>Tekst en documenten vragen veel leeswerk</h3><p>AI-automatisering helpt bij interpreteren en voorbereiden. Een AI-agent kan daarnaast gericht kennis opzoeken en toegestane hulpmiddelen gebruiken.</p></article>
                 <article><h3>Vaste stappen blijven terugkomen</h3><p>Procesautomatisering past wanneer invoer, regels en uitvoer herkenbaar zijn en menselijke uitzonderingen benoemd kunnen worden.</p></article>
                 <article><h3>Standaardsoftware past structureel niet</h3><p>Maatwerksoftware past wanneer een belangrijk proces een gerichte gebruikersomgeving of workflow nodig heeft.</p></article>
                 <article><h3>Gegevens staan al in verschillende tools</h3><p>Een systeemkoppeling past wanneer bestaande software bruikbaar is, maar informatie nog handmatig wordt overgedragen.</p></article>
