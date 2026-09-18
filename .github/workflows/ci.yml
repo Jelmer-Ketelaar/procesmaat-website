@@ -1,0 +1,38 @@
+name: CI
+
+# Validatie voor dev en voor elke PR. De deploy van main staat in deploy.yml.
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+
+      - name: Controleer de productie-origin
+        env:
+          NEXT_PUBLIC_DEPLOYMENT_ENV: production
+          NEXT_PUBLIC_SITE_URL: https://procesmaatsoftware.nl
+          NEXT_PUBLIC_SITE_EMAIL: info@procesmaatsoftware.nl
+        run: npm run build

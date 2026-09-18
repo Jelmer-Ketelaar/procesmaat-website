@@ -13,6 +13,18 @@ export function organizationSchema() {
     url: siteConfig.siteUrl,
     email: siteConfig.email,
     logo: `${siteConfig.siteUrl}/favicon.png`,
+    areaServed: siteConfig.location.areaServed,
+    // Alleen een adres opnemen zodra er een vestigingsplaats is geconfigureerd.
+    ...(siteConfig.location.city
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: siteConfig.location.city,
+            ...(siteConfig.location.region ? { addressRegion: siteConfig.location.region } : {}),
+            addressCountry: "NL",
+          },
+        }
+      : {}),
     ...(siteConfig.socials.linkedIn ? { sameAs: [siteConfig.socials.linkedIn] } : {}),
   };
 }

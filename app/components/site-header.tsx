@@ -8,6 +8,7 @@ import { TrackedLink } from "./tracked-link";
 const navItems = [
   ["AI-automatisering", "/ai-automatisering"],
   ["Diensten", "/diensten"],
+  ["Kennisbank", "/kennisbank"],
   ["Investering", "/#investering"],
   ["Werkwijze", "/#werkwijze"],
 
@@ -48,7 +49,7 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label={`${siteConfig.name} — homepage`}>
+      <Link className="brand" href="/">
         <span className="brand-mark" aria-hidden="true">P</span>
         <span>{siteConfig.name}</span>
       </Link>

@@ -104,6 +104,12 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /AI &amp; Automatisering voor het MKB \| ProcesMaat Software/);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /"@type":"Organization"/);
+  // Werkgebied hoort er altijd te staan; een adres alleen zodra een vestigingsplaats is geconfigureerd.
+  assert.match(html, /"areaServed":"Nederland"/);
+  assert.match(html, /"@type":"PostalAddress"/);
+  assert.match(html, /"addressLocality":"Teststad"/);
+  assert.match(html, /"addressCountry":"NL"/);
+  assert.match(html, /Werkt vanuit Teststad voor mkb-teams in Nederland/);
   assert.doesNotMatch(html, /"@type":"FAQPage"/);
 });
 
@@ -129,6 +135,39 @@ test("commercial service pages render unique search metadata, useful content and
     assert.doesNotMatch(html, /"@type":"FAQPage"/, path);
     assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i, path);
     assert.match(html, /Ontvang gratis digitaal advies/, path);
+  }
+});
+
+test("knowledge hub and articles render unique metadata, article schema and practical internal routes", async () => {
+  const hub = await request("/kennisbank");
+  assert.equal(hub.status, 200);
+  const hubHtml = await hub.text();
+  assert.match(hubHtml, /Kennisbank over procesautomatisering \| ProcesMaat/);
+  assert.match(hubHtml, /rel="canonical" href="https:\/\/procesmaat\.test\/kennisbank"/i);
+  assert.match(hubHtml, /"@type":"ItemList"/);
+  assert.match(hubHtml, /href="\/kennisbank\/bedrijfsprocessen-automatiseren"/);
+
+  const pages = [
+    ["bedrijfsprocessen-automatiseren", "Bedrijfsprocessen automatiseren voor het mkb | ProcesMaat", "/procesautomatisering"],
+    ["welk-proces-automatiseren", "Welk proces automatiseren? Praktische keuzehulp", "/procesautomatisering"],
+    ["maatwerksoftware-of-standaardpakket", "Maatwerksoftware of standaardpakket kiezen", "/maatwerksoftware"],
+    ["api-koppeling-checklist", "API-koppeling checklist voor het mkb", "/systeemkoppelingen"],
+  ];
+
+  for (const [slug, title, servicePath] of pages) {
+    const path = `/kennisbank/${slug}`;
+    const response = await request(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.ok(html.includes(title), path);
+    assert.ok(html.includes(`rel="canonical" href="https://procesmaat.test${path}"`), path);
+    assert.equal((html.match(/<h1\b/gi) ?? []).length, 1, path);
+    assert.match(html, /"@type":"Article"/, path);
+    assert.match(html, /"@type":"BreadcrumbList"/, path);
+    assert.match(html, /"datePublished":"2026-08-25"/, path);
+    assert.match(html, new RegExp(`href="${servicePath}"`), path);
+    assert.match(html, /href="\/#scan"/, path);
+    assert.doesNotMatch(html, /property="og:image"|name="twitter:image"|"@type":"FAQPage"/i, path);
   }
 });
 

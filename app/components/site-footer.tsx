@@ -5,7 +5,7 @@ export function SiteFooter() {
   return (
     <footer className="site-footer">
       <div className="footer-brand">
-        <Link className="brand brand-light" href="/" aria-label={`${siteConfig.name} — homepage`}>
+        <Link className="brand brand-light" href="/">
           <span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span>
         </Link>
         <p>AI-automatisering, maatwerksoftware en systeemkoppelingen voor Nederlandse mkb-teams.</p>
@@ -34,6 +34,10 @@ export function SiteFooter() {
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} {siteConfig.name}</span>
+        {siteConfig.location.city && (
+          // Eén tekstnode: React plaatst anders commentaarmarkers tussen de interpolaties.
+          <span>{`Werkt vanuit ${siteConfig.location.city} voor mkb-teams in ${siteConfig.location.areaServed}. Advies en oplevering verlopen digitaal.`}</span>
+        )}
         {!siteConfig.isProduction && <span>Development — gegevens vóór publicatie controleren</span>}
       </div>
     </footer>
