@@ -27,9 +27,13 @@ De publieke configuratie staat centraal in [`lib/site-config.ts`](./lib/site-con
 
 `NEXT_PUBLIC_LEGAL_REVIEW_COMPLETED=true` verbergt de controlewaarschuwing op de privacypagina; zet die uitsluitend na een professionele juridische controle.
 
-De site toont geen juridische bedrijfsnaam, vestigingsadres, KvK-nummer of telefoonnummer. Die velden bestaan niet meer in de configuratie.
+De site toont geen juridische bedrijfsnaam, straatadres, KvK-nummer of telefoonnummer. Die velden bestaan niet in de configuratie. Alleen een vestigingsplaats en regio zijn optioneel configureerbaar, voor lokale vindbaarheid; zie hieronder.
 
 De optionele velden `NEXT_PUBLIC_BUILDER_NAME`, `NEXT_PUBLIC_BUILDER_ROLE` en `NEXT_PUBLIC_BUILDER_BIO` worden alleen getoond wanneer ze alle drie zijn ingevuld. Verzin hiervoor geen bio.
+
+De optionele velden `NEXT_PUBLIC_BUSINESS_CITY`, `NEXT_PUBLIC_BUSINESS_REGION` en `NEXT_PUBLIC_AREA_SERVED` bepalen de locatieregel in de footer en het `PostalAddress` in de Organization-gegevens. Zonder `NEXT_PUBLIC_BUSINESS_CITY` toont de site geen locatie en bevat het schema geen adres; `areaServed` staat er altijd en is standaard `Nederland`. Vul een echte vestigingsplaats in — een verzonnen locatie schaadt lokale vindbaarheid meer dan geen locatie.
+
+De productiecontrole laat deze optionele velden leeg toe, maar weigert een waarde die nog blokhaken bevat (`[Stad]`, `[Je Naam]`), zodat een niet-ingevuld sjabloon nooit live gaat.
 
 ## Leadontvangst
 

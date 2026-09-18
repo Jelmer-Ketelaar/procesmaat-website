@@ -104,6 +104,12 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /AI &amp; Automatisering voor het MKB \| ProcesMaat Software/);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /"@type":"Organization"/);
+  // Werkgebied hoort er altijd te staan; een adres alleen zodra een vestigingsplaats is geconfigureerd.
+  assert.match(html, /"areaServed":"Nederland"/);
+  assert.match(html, /"@type":"PostalAddress"/);
+  assert.match(html, /"addressLocality":"Teststad"/);
+  assert.match(html, /"addressCountry":"NL"/);
+  assert.match(html, /Werkt vanuit Teststad voor mkb-teams in Nederland/);
   assert.doesNotMatch(html, /"@type":"FAQPage"/);
 });
 

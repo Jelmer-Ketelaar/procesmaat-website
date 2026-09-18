@@ -34,6 +34,10 @@ export function SiteFooter() {
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} {siteConfig.name}</span>
+        {siteConfig.location.city && (
+          // Eén tekstnode: React plaatst anders commentaarmarkers tussen de interpolaties.
+          <span>{`Werkt vanuit ${siteConfig.location.city} voor mkb-teams in ${siteConfig.location.areaServed}. Advies en oplevering verlopen digitaal.`}</span>
+        )}
         {!siteConfig.isProduction && <span>Development — gegevens vóór publicatie controleren</span>}
       </div>
     </footer>

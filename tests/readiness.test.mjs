@@ -20,6 +20,18 @@ test("production readiness passes only with complete explicit configuration", ()
   assert.deepEqual(validateProductionReadiness(validProductionEnv), []);
 });
 
+test("optional location and builder values may be absent but never left as a template", () => {
+  assert.deepEqual(validateProductionReadiness(validProductionEnv), []);
+
+  const errors = validateProductionReadiness({
+    ...validProductionEnv,
+    NEXT_PUBLIC_BUSINESS_CITY: "[Stad]",
+    NEXT_PUBLIC_BUILDER_NAME: "[Je Naam]",
+  });
+  assert.ok(errors.some((error) => error.includes("NEXT_PUBLIC_BUSINESS_CITY")));
+  assert.ok(errors.some((error) => error.includes("NEXT_PUBLIC_BUILDER_NAME")));
+});
+
 test("production readiness catches placeholders, fake contacts and missing server controls", () => {
   const errors = validateProductionReadiness({
     ...validProductionEnv,

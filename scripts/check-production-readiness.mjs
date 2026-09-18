@@ -7,6 +7,16 @@ const requiredPublicValues = [
   ["NEXT_PUBLIC_SUBPROCESSORS", "gecontroleerde subverwerkersinformatie"],
 ];
 
+// Deze mogen ontbreken; staat er wél iets, dan mag het geen ingevuld-nog-in-te-vullen sjabloon zijn.
+const optionalPublicValues = [
+  ["NEXT_PUBLIC_BUSINESS_CITY", "vestigingsplaats"],
+  ["NEXT_PUBLIC_BUSINESS_REGION", "regio"],
+  ["NEXT_PUBLIC_AREA_SERVED", "werkgebied"],
+  ["NEXT_PUBLIC_BUILDER_NAME", "naam van de bouwer"],
+  ["NEXT_PUBLIC_BUILDER_ROLE", "rol van de bouwer"],
+  ["NEXT_PUBLIC_BUILDER_BIO", "bio van de bouwer"],
+];
+
 function hasPlaceholder(value = "") {
   return /\[[^\]]+\]/.test(value);
 }
@@ -39,6 +49,13 @@ export function validateProductionReadiness(env = process.env) {
     const value = env[key]?.trim() ?? "";
     if (!value) errors.push(`${label} ontbreekt (${key}).`);
     else if (hasPlaceholder(value)) errors.push(`${label} bevat nog een waarde tussen blokhaken (${key}).`);
+  }
+
+  for (const [key, label] of optionalPublicValues) {
+    const value = env[key]?.trim() ?? "";
+    if (value && hasPlaceholder(value)) {
+      errors.push(`${label} bevat nog een waarde tussen blokhaken (${key}).`);
+    }
   }
 
   if (!isSecurePublicUrl(env.NEXT_PUBLIC_SITE_URL ?? "")) {
