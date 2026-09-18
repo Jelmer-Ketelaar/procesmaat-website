@@ -1,3 +1,8 @@
+export const homeSeo = {
+  title: "AI & Automatisering voor het MKB | ProcesMaat Software",
+  description: "Geen zin meer in handmatig kopiëren en plakken? ProcesMaat bouwt slimme AI-automatisering en software voor mkb-teams. Ontvang gratis digitaal advies!",
+} as const;
+
 export const problemItems = [
   "Gegevens worden handmatig overgenomen van e-mail naar een ander systeem.",
   "Wekelijkse rapportages kosten telkens weer een ronde door spreadsheets.",
@@ -7,14 +12,19 @@ export const problemItems = [
 ] as const;
 
 export const automationExamples = [
-  { number: "AI", title: "AI in je dagelijkse werk", text: "Klantvragen herkennen, documenten begrijpen en concepten klaarzetten. Verbonden met de systemen waarin je team werkt.", tag: "AI-automatisering", href: "/ai-automatisering" },
-  { number: "AG", title: "Een AI-agent voor je team", text: "Een gerichte assistent die informatie opzoekt en vervolgstappen voorbereidt, met duidelijke grenzen en jouw goedkeuring.", tag: "AI-agents", href: "/ai-agents" },
+  {
+    number: "AI",
+    title: "AI-automatisering & agents",
+    text: "Documenten uitlezen, aanvragen ordenen en vervolgacties voorbereiden, met menselijke controle.",
+    tag: "AI",
+    href: "/ai-automatisering",
+  },
   {
     number: "01",
     title: "Facturen & documenten",
     text: "Bestanden uitlezen, gegevens controleren en klaarzetten in je boekhouding of backoffice.",
     tag: "Verwerking",
-    href: "/ai-automatisering",
+    href: "/factuur-documentverwerking",
   },
   {
     number: "02",
@@ -40,17 +50,16 @@ export const automationExamples = [
 ] as const;
 
 export const processSteps = [
-  { number: "01", title: "Kennismaken", text: "We bespreken waar werk blijft liggen, welke stappen terugkomen en wat je wilt verbeteren." },
-  { number: "02", title: "Proces onderzoeken", text: "We brengen uitzonderingen, systemen en verantwoordelijkheden in kaart voordat we iets bouwen." },
-  { number: "03", title: "Prototype bouwen", text: "Je krijgt vroeg een werkende opzet te zien. Daarmee toetsen we of de oplossing klopt in de praktijk." },
+  { number: "01", title: "Digitaal aanvragen", text: "Je beschrijft je proces, software en gewenste resultaat. Alles begint online, zonder afspraak." },
+  { number: "02", title: "Advies per e-mail", text: "Binnen één werkdag krijg je een eerste richting. Eventuele aanvullende vragen stellen we per e-mail." },
+  { number: "03", title: "Voorstel en prototype", text: "Na afbakening ontvang je een vaste projectprijs exclusief btw. Na jouw akkoord bouwen we een eerste versie die je online kunt bekijken." },
   { number: "04", title: "Opleveren & verbeteren", text: "We voeren gecontroleerd in, leggen de werking uit en verbeteren op basis van echt gebruik." },
 ] as const;
 
 export const faqs = [
-  { question: "Wat is AI-automatisering voor bedrijven?", answer: "AI-automatisering combineert het begrijpen van tekst en documenten met vaste processtappen. Bijvoorbeeld: AI herkent het onderwerp van een klantaanvraag, een koppeling zet de gegevens klaar in je CRM en een medewerker keurt het antwoord goed. Zo krijgt AI een concrete plek in het dagelijkse werk." },
   {
     question: "Wat kan er geautomatiseerd worden?",
-    answer: "Vooral terugkerende processen met duidelijke invoer, beslisregels en uitvoer zijn kansrijk. Denk aan documentverwerking, gegevens overnemen, controles, meldingen, rapportages en opvolgtaken. Tijdens de scan kijken we ook naar uitzonderingen en risico’s.",
+    answer: "Vooral terugkerende processen met duidelijke invoer, beslisregels en uitvoer zijn kansrijk. Denk aan documentverwerking, gegevens overnemen, controles, meldingen, rapportages en opvolgtaken. Bij je aanvraag kijken we ook naar uitzonderingen en risico’s.",
   },
   {
     question: "Moeten we onze huidige software vervangen?",
@@ -58,7 +67,7 @@ export const faqs = [
   },
   {
     question: "Wat kost een oplossing?",
-    answer: "Dat hangt af van de processtappen, koppelingen, uitzonderingen en gewenste ondersteuning. Na het procesonderzoek ontvang je een afgebakend voorstel met aanpak en investering. De eerste automatiseringsscan is gratis en vrijblijvend.",
+    answer: "Dat hangt af van de processtappen, koppelingen, uitzonderingen en gewenste ondersteuning. Na het procesonderzoek ontvang je een afgebakend voorstel met aanpak en investering. Het eerste digitale advies is gratis en vrijblijvend.",
   },
   {
     question: "Hoe lang duurt een project?",
@@ -69,12 +78,12 @@ export const faqs = [
     answer: "Nee. Vaak zijn gewone softwarelogica, een goede koppeling of een slimmer formulier betrouwbaarder en goedkoper. We zetten AI alleen in als het aantoonbaar past bij de taak, bijvoorbeeld bij het classificeren of samenvatten van ongestructureerde informatie.",
   },
   {
-    question: "Wat gebeurt er tijdens de gratis scan?",
-    answer: "In 30 minuten bespreken we één terugkerend proces, de belangrijkste stappen en uitzonderingen. Je krijgt een eerste haalbaarheidsinschatting en we benoemen eerlijk wanneer automatiseren niet zinvol lijkt. Als er een passende vervolgstap is, bespreken we die samen.",
+    question: "Hoe werkt het digitale advies?",
+    answer: "Je vult het online formulier in. Binnen één werkdag ontvang je een eerste advies per e-mail over de haalbaarheid en een logische volgende stap. Als informatie ontbreekt, vragen we die per e-mail op. Er is geen videoafspraak, telefoongesprek of live scan.",
   },
   {
-    question: "Wat gebeurt er na de scan?",
-    answer: "Alleen als er een kansrijke en afgebakende vervolgstap is, bespreken we welk onderzoek of prototype daarbij past. Je beslist daarna zelf of je verder wilt. De scan verplicht je nergens toe.",
+    question: "Wat gebeurt er na het advies?",
+    answer: "Je ontvangt per e-mail een mogelijke aanpak. Na afbakening krijg je een voorstel met vaste projectprijs exclusief btw en apart benoemde kosten voor gebruik en onderhoud. We starten pas na jouw akkoord. Het advies verplicht je nergens toe.",
   },
   {
     question: "Wie onderhoudt de oplossing?",

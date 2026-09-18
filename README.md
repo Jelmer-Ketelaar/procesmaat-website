@@ -116,3 +116,12 @@ npm run build:test
 5. Meet mobiele praktijkprestaties zodra er voldoende verkeer is; een succesvolle build is geen Core Web Vitals-meting.
 
 Bronnen: [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) en [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features). Voor AI-zoekfuncties blijven de normale SEO-principes gelden; extra speciale AI-markup is niet nodig.
+
+
+## Digitale adviesaanvraag
+
+De aanvraag verloopt volledig via het formulier en e-mail. De bezoeker ontvangt binnen één werkdag een eerste advies; eventuele aanvullende vragen volgen per e-mail. Er worden geen afspraken of live scans aangeboden.
+
+Het formulier verstuurt ook `softwareTools` (2–400 tekens), `desiredOutcome` (10–1200 tekens) en `weeklyVolume` (less-than-25, 25-100, 101-500, more-than-500 of unknown). Deze velden zijn server-side verplicht en gaan mee naar de bestaande webhook. Bedrijfsnaam is optioneel en bedrijfsgrootte wordt niet meer gevraagd. De zelftest bewaart antwoorden alleen in de pagina.
+
+De investering wordt na afbakening aangeboden als vaste projectprijs exclusief btw. Hosting, modelgebruik, onderhoud en monitoring worden apart benoemd. De voorbeeldprocessen zijn illustraties, geen klantcases of gemeten prestaties.

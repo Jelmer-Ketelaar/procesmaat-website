@@ -1,4 +1,5 @@
 import type { ServicePageContent } from "@/lib/services";
+import type { KnowledgeArticle } from "@/lib/knowledge";
 import { siteConfig } from "@/lib/site-config";
 
 const organizationId = `${siteConfig.siteUrl}/#organization`;
@@ -41,17 +42,6 @@ export function webPageSchema(path: string, name: string, description: string) {
   };
 }
 
-export function faqSchema(faqs: readonly { question: string; answer: string }[]) {
-  return {
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer },
-    })),
-  };
-}
-
 export function serviceSchema(service: ServicePageContent) {
   const url = `${siteConfig.siteUrl}/${service.slug}`;
   return {
@@ -63,6 +53,35 @@ export function serviceSchema(service: ServicePageContent) {
     areaServed: { "@type": "Country", name: "Nederland" },
     audience: { "@type": "BusinessAudience", audienceType: "Nederlandse mkb-bedrijven" },
     provider: { "@id": organizationId },
+  };
+}
+
+export function articleSchema(article: KnowledgeArticle) {
+  const url = `${siteConfig.siteUrl}/kennisbank/${article.slug}`;
+  return {
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: article.title,
+    description: article.metaDescription,
+    url,
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    datePublished: article.publishedAt,
+    dateModified: article.updatedAt,
+    inLanguage: "nl-NL",
+    author: { "@id": organizationId },
+    publisher: { "@id": organizationId },
+  };
+}
+
+export function itemListSchema(items: readonly { name: string; path: string }[]) {
+  return {
+    "@type": "ItemList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: `${siteConfig.siteUrl}${item.path}`,
+    })),
   };
 }
 

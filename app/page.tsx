@@ -1,16 +1,17 @@
 import Link from "next/link";
 import { AutomationDemo } from "@/app/components/automation-demo";
 import { JsonLd } from "@/app/components/json-ld";
+import { QuickScan } from "@/app/components/quick-scan";
 import { LeadForm } from "@/app/components/lead-form";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 import { TrackedLink } from "@/app/components/tracked-link";
-import { automationExamples, faqs, problemItems, processSteps } from "@/lib/content";
+import { automationExamples, homeSeo, faqs, problemItems, processSteps } from "@/lib/content";
+import { knowledgeList } from "@/lib/knowledge";
 import { siteConfig } from "@/lib/site-config";
-import { faqSchema, graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
+import { graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
 
-const homeTitle = "AI en automatisering voor het mkb | ProcesMaat";
-const homeDescription = "Laat AI, software en systeemkoppelingen het terugkerende werk doen. ProcesMaat bouwt automatisering voor het mkb. Ontdek de kansen in een gratis scan.";
+
 
 export default function Home() {
   return (
@@ -18,8 +19,7 @@ export default function Home() {
       <JsonLd data={graphSchema([
         organizationSchema(),
         websiteSchema(),
-        webPageSchema("/", homeTitle, homeDescription),
-        faqSchema(faqs),
+        webPageSchema("/", homeSeo.title, homeSeo.description),
       ])} />
       <SiteHeader />
       <main id="main-content">
@@ -29,10 +29,10 @@ export default function Home() {
             <h1>Laat je bedrijf<br /><em>vooruitwerken.</em></h1>
             <p className="hero-intro">Van een volle inbox naar opgevolgde aanvragen. Van losse documenten naar bruikbare gegevens. Wij bouwen AI-automatisering en software die het werk ertussen overneemt. Jij houdt de regie.</p>
             <div className="hero-actions">
-              <TrackedLink className="button" href="#scan" event="cta_click" location="hero">Vraag de gratis scan aan <span aria-hidden="true">&#8599;</span></TrackedLink>
-              <a className="text-link" href="#mogelijkheden">Ontdek de mogelijkheden <span aria-hidden="true">&#8595;</span></a>
+              <TrackedLink className="button" href="#scan" event="cta_click" location="hero">Ontvang gratis digitaal advies <span aria-hidden="true">&#8599;</span></TrackedLink>
+              <a className="text-link" href="#quickscan">Doe de korte zelftest <span aria-hidden="true">&#8595;</span></a>
             </div>
-            <p className="reassurance">30 minuten <i /> Vrijblijvend <i /> Direct met de bouwer</p>
+            <p className="reassurance">Binnen één werkdag <i /> Gratis en vrijblijvend <i /> Per e-mail</p>
           </div>
 
           <AutomationDemo />
@@ -53,8 +53,8 @@ export default function Home() {
         <section className="examples-section" id="mogelijkheden" aria-labelledby="examples-title">
           <div className="section-label section-label-light"><span>02</span><p>Mogelijkheden</p></div>
           <div className="examples-heading">
-            <h2 id="examples-title">Van losse handelingen naar één <em>slimme werkwijze.</em></h2>
-            <p>Waar zit de grootste kans voor jouw team? Ontdek hoe AI, koppelingen en maatwerk kunnen samenwerken. De voorbeelden hieronder laten mogelijkheden zien; de precieze invulling bepalen we met jou.</p>
+            <h2 id="examples-title">AI en automatisering <em>voor het mkb.</em></h2>
+            <p>Dit zijn voorbeelden van processen die vaak geschikt zijn voor automatisering — geen klantcases of kant-en-klare pakketten. Wat zinvol is, hangt af van jouw proces.</p>
           </div>
           <div className="examples-grid">
             {automationExamples.map((example) => (
@@ -64,6 +64,21 @@ export default function Home() {
                 <Link className="example-link" href={example.href} aria-label={`Lees meer over ${example.title.toLowerCase()}`}>Lees meer <span aria-hidden="true">↗</span></Link>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="integration-section section-rule" aria-labelledby="integration-title">
+          <div>
+            <p className="eyebrow"><span /> Werk verder met je eigen software</p>
+            <h2 id="integration-title">Je tools zijn er al.<br /><em>Nu de verbinding nog.</em></h2>
+            <p>Staat dezelfde informatie in je webshop, CRM én boekhouding? We onderzoeken hoe gegevens tussen die systemen kunnen doorstromen, met controles op ontbrekende of dubbele invoer.</p>
+          </div>
+          <div>
+            <div className="integration-flow" aria-label="Voorbeeld: gegevens van webshop via CRM naar boekhouding">
+              <span>Webshop<small>Bestelling</small></span><b aria-hidden="true">→</b><span>CRM<small>Klantgegevens</small></span><b aria-hidden="true">→</b><span>Boekhouding<small>Factuur</small></span>
+            </div>
+            <p className="integration-note">Gebruik je bijvoorbeeld WooCommerce, HubSpot, Exact Online, Moneybird of AFAS? Vertel ons welke pakketten je gebruikt. We controleren per pakket en abonnement welke koppelmogelijkheden beschikbaar zijn.</p>
+            <Link className="text-link" href="/crm-boekhouding-koppelen">CRM en boekhouding koppelen <span aria-hidden="true">↗</span></Link>
           </div>
         </section>
 
@@ -90,6 +105,38 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="scenario-section" aria-labelledby="scenario-title">
+          <div>
+            <p className="eyebrow"><span /> Uitgewerkt voorbeeld · geen klantcase</p>
+            <h2 id="scenario-title">Een bestelling.<br /><em>Eén keer invoeren.</em></h2>
+            <p>Stel: na iedere webshopbestelling neemt iemand klantgegevens en orderregels over in de administratie. Een correctie betekent opnieuw zoeken en aanpassen.</p>
+          </div>
+          <ol className="scenario-steps">
+            <li><span>01</span><div><h3>Bestelling ontvangen</h3><p>De koppeling haalt de benodigde ordergegevens op uit de webshop.</p></div></li>
+            <li><span>02</span><div><h3>Controleren vóór verwerken</h3><p>Ontbrekende gegevens of een dubbele bestelling gaan naar een medewerker. Alleen geldige gegevens gaan door.</p></div></li>
+            <li><span>03</span><div><h3>Klaarzetten in de boekhouding</h3><p>De status blijft zichtbaar. Je team ziet wat verwerkt is en wat nog aandacht vraagt.</p></div></li>
+          </ol>
+          <p className="scenario-measure">Wat je vervolgens meet: tijd per bestelling, aantal correcties en openstaande uitzonderingen. Zo toets je of de oplossing in de praktijk iets oplevert.</p>
+        </section>
+
+        <section className="pricing-section section-rule" id="investering" aria-labelledby="pricing-title">
+          <div className="pricing-intro">
+            <p className="eyebrow"><span /> Duidelijkheid vóór de bouw</p>
+            <h2 id="pricing-title">Hoe we jouw <em>investering bepalen.</em></h2>
+            <p>Je eerste digitale advies is gratis. Na afbakening van je aanvraag ontvang je een voorstel met een vaste projectprijs, exclusief btw. Je ziet wat we bouwen, wat inbegrepen is en welke kosten terugkeren.</p>
+            <a className="text-link" href="#scan">Leg je proces aan ons voor <span aria-hidden="true">↗</span></a>
+          </div>
+          <div className="pricing-factors">
+            <article><span>01</span><h3>Systemen en datastromen</h3><p>Een rechtstreekse koppeling tussen twee pakketten vraagt iets anders dan een keten van applicaties met gegevensverkeer in beide richtingen.</p></article>
+            <article><span>02</span><h3>Toegang tot je software</h3><p>Beschikbare API’s, webhooks en exportmogelijkheden bepalen hoeveel maatwerk nodig is. We controleren ook beperkingen van je abonnement.</p></article>
+            <article><span>03</span><h3>Logica en AI</h3><p>Vaste beslisregels of interpretatie van vrije tekst en documenten: de gekozen aanpak, volumes en benodigde controles bepalen de omvang.</p></article>
+            <article><span>04</span><h3>Uitzonderingen en validatie</h3><p>We bepalen welke afwijkingen automatisch afgehandeld kunnen worden en waar je team een voorstel moet controleren of goedkeuren.</p></article>
+          </div>
+          <p className="pricing-note"><strong>Ook de terugkerende kosten zijn vooraf duidelijk.</strong> Hosting, modelgebruik, onderhoud en monitoring benoemen we apart in het voorstel. Aanvullend werk voeren we pas uit na een nieuwe afspraak. Je betaalt pas voor uitvoering nadat je akkoord hebt gegeven.</p>
+        </section>
+
+        <QuickScan />
+
         <section className="process-section" id="werkwijze" aria-labelledby="process-title">
           <div className="section-label section-label-light"><span>04</span><p>Werkwijze</p></div>
           <div className="process-heading"><h2 id="process-title">Eerst begrijpen.<br /><em>Dan pas bouwen.</em></h2><p>Automatisering werkt pas goed als de uitzonderingen net zo duidelijk zijn als de standaardroute.</p></div>
@@ -98,7 +145,7 @@ export default function Home() {
 
         <section className="fit-section section-rule" aria-labelledby="fit-title">
           <div className="section-label"><span>05</span><p>Past dit?</p></div>
-          <div className="fit-heading"><h2 id="fit-title">Een goede automatisering begint bij een <em>echt proces.</em></h2><p>De gratis scan is bedoeld om snel en eerlijk te bepalen of bouwen de moeite waard kan zijn.</p></div>
+          <div className="fit-heading"><h2 id="fit-title">Een goede automatisering begint bij een <em>echt proces.</em></h2><p>De digitaal advies is bedoeld om snel en eerlijk te bepalen of bouwen de moeite waard kan zijn.</p></div>
           <div className="fit-grid">
             <article className="fit-yes"><span className="fit-status">DIT PAST WAARSCHIJNLIJK</span><h3>Je herkent dit:</h3><ul><li><i>✓</i><span>Hetzelfde proces komt wekelijks of dagelijks terug.</span></li><li><i>✓</i><span>Meerdere collega’s of systemen zijn erbij betrokken.</span></li><li><i>✓</i><span>Je wilt tijd besparen én meer controle houden.</span></li><li><i>✓</i><span>Er is iemand die het huidige proces goed kent.</span></li></ul></article>
             <article className="fit-no"><span className="fit-status">DIT PAST WAARSCHIJNLIJK NIET</span><h3>Je zoekt vooral:</h3><ul><li><i>×</i><span>Een los softwareproject zonder terugkerend bedrijfsproces.</span></li><li><i>×</i><span>Een kant-en-klare app zonder procesonderzoek.</span></li><li><i>×</i><span>Een één-klik-AI-oplossing zonder menselijke controle.</span></li><li><i>×</i><span>Automatisering voor een eenmalige taak.</span></li></ul></article>
@@ -106,9 +153,9 @@ export default function Home() {
         </section>
 
         <section className="credibility-section" aria-labelledby="credibility-title">
-          <div className="credibility-copy"><p className="eyebrow light"><span /> Gebouwd om beheersbaar te blijven</p><h2 id="credibility-title">Geen black box.<br /><em>Wel duidelijkheid.</em></h2><p>Je hoeft de techniek niet te kennen. Je moet wel kunnen begrijpen wat de oplossing doet, wanneer er iets afwijkt en wie er kan ingrijpen.</p></div>
+          <div className="credibility-copy"><p className="eyebrow light"><span /> Persoonlijk advies, helemaal online</p><h2 id="credibility-title">Van jouw aanvraag<br /><em>naar een helder plan.</em></h2><p>Je hoeft je vraag niet technisch uit te leggen. Beschrijf waar je werk vastloopt. Je krijgt een reactie van degene die de oplossing bouwt, met gerichte vervolgstappen per e-mail.</p></div>
           <div className="credibility-grid">
-            <div><span>01</span><h3>Direct contact</h3><p>Je spreekt tijdens analyse, bouw en oplevering rechtstreeks met degene die de oplossing bouwt.</p></div>
+            <div><span>01</span><h3>Direct contact</h3><p>Je mailt tijdens analyse, bouw en oplevering rechtstreeks met degene die de oplossing bouwt.</p></div>
             <div><span>02</span><h3>Techniek met een reden</h3><p>Van vaste softwarelogica tot API-koppeling of AI: we kiezen wat aantoonbaar bij de taak past.</p></div>
             <div><span>03</span><h3>Controle op uitzonderingen</h3><p>Niet alles hoeft automatisch. Onzekere of afwijkende situaties kunnen bewust bij een medewerker terechtkomen.</p></div>
             <div><span>04</span><h3>Stapsgewijs opleveren</h3><p>Een vroeg prototype maakt aannames zichtbaar voordat een groter deel van het proces wordt gebouwd.</p></div>
@@ -122,24 +169,51 @@ export default function Home() {
           )}
         </section>
 
+        <section className="home-knowledge section-rule" aria-labelledby="home-knowledge-title">
+          <div className="section-label"><span>06</span><p>Kennisbank</p></div>
+          <div>
+            <div className="home-knowledge-heading">
+              <h2 id="home-knowledge-title">Eerst scherp kiezen.<br /><em>Dan pas bouwen.</em></h2>
+              <p>Praktische uitleg voor teams die minder handwerk willen, maar eerst willen begrijpen welke route betrouwbaar en beheersbaar is.</p>
+            </div>
+            <div className="home-knowledge-grid">
+              {knowledgeList.slice(0, 3).map((article) => (
+                <article key={article.slug}>
+                  <span>{article.readingTime}</span>
+                  <h3><Link href={`/kennisbank/${article.slug}`}>{article.title}</Link></h3>
+                  <p>{article.metaDescription}</p>
+                  <Link href={`/kennisbank/${article.slug}`}>Lees artikel <i aria-hidden="true">↗</i></Link>
+                </article>
+              ))}
+            </div>
+            <Link className="home-knowledge-all" href="/kennisbank">Bekijk de volledige kennisbank <span aria-hidden="true">→</span></Link>
+          </div>
+        </section>
+
         <section className="faq-section section-rule" id="veelgestelde-vragen" aria-labelledby="faq-title">
-          <div className="section-label"><span>06</span><p>Veelgestelde vragen</p></div>
-          <div className="faq-heading"><h2 id="faq-title">Eerst weten<br />waar je aan toe bent.</h2><p>Staat je vraag er niet tussen? Tijdens de gratis scan kijken we graag naar jouw situatie.</p></div>
-          <div className="faq-list">{faqs.map((faq, index) => <details key={faq.question}><summary><span>{String(index + 1).padStart(2, "0")}</span><b>{faq.question}</b><i aria-hidden="true">+</i></summary><div><p>{faq.answer}</p></div></details>)}</div>
+          <div className="section-label"><span>07</span><p>Veelgestelde vragen</p></div>
+          <div className="faq-heading"><h2 id="faq-title">Eerst weten<br />waar je aan toe bent.</h2><p>Staat je vraag er niet tussen? Stuur je vraag mee met je digitale aanvraag.</p></div>
+          <div className="faq-list">{faqs.map((faq, index) => <details key={faq.question}><summary><span>0{index + 1}</span><b>{faq.question}</b><i aria-hidden="true">+</i></summary><div><p>{faq.answer}</p></div></details>)}</div>
         </section>
 
         <section className="scan-section" id="scan" aria-labelledby="scan-title">
           <div className="scan-intro">
-            <p className="eyebrow light"><span /> Gratis automatiseringsscan — 30 minuten</p><h2 id="scan-title">Waar blijft bij jullie tijd liggen?</h2><p>Je hoeft nog niet te weten welke techniek je nodig hebt. Vertel waar het werk vastloopt. In 30 minuten bespreken we één proces, de kansen voor automatisering en een haalbare eerste stap.</p>
-            <ul><li><i>✓</i><span>Eén terugkerend proces bespreken</span></li><li><i>✓</i><span>Belangrijkste stappen en uitzonderingen benoemen</span></li><li><i>✓</i><span>Een eerste haalbaarheidsinschatting maken</span></li><li><i>✓</i><span>Eerlijk aangeven als automatiseren niet zinvol is</span></li><li><i>✓</i><span>Een mogelijke vervolgstap bespreken</span></li></ul>
-            <div className="booking-alternative"><span>Na je aanvraag nemen we per e-mail contact op om samen een geschikt moment te kiezen.</span></div>
+            <p className="eyebrow light"><span /> Digitale quick-scan · gratis en vrijblijvend</p>
+            <h2 id="scan-title">Jouw proces.<br />Ons advies in je inbox.</h2>
+            <p>Ontvang binnen één werkdag een eerste digitaal automatiseringsadvies. Vertel welke software je gebruikt, wat nu tijd kost en welk resultaat je wilt bereiken.</p>
+            <ol className="scan-steps">
+              <li><span>1</span><div><strong>Vul je proces online in</strong><p>Beschrijf de huidige stappen, de aantallen en de gewenste uitkomst. Technische kennis is niet nodig.</p></div></li>
+              <li><span>2</span><div><strong>Ontvang advies binnen één werkdag</strong><p>We beoordelen je aanvraag en mailen een eerste richting. Zijn er nog vragen? Die stellen we per e-mail.</p></div></li>
+              <li><span>3</span><div><strong>Beslis op basis van een duidelijk voorstel</strong><p>Na afbakening ontvang je de aanpak en een vaste projectprijs exclusief btw. Bouw start pas na jouw akkoord.</p></div></li>
+            </ol>
+            <div className="booking-alternative"><span>Helemaal online: geen videoafspraak, telefoongesprek of live scan. Het eerste advies is gratis en je zit nergens aan vast.</span></div>
           </div>
-          <div className="form-panel"><div className="form-panel-heading"><span>AANVRAAG / 01</span><p>Velden met * zijn verplicht</p></div><LeadForm /></div>
+          <div className="form-panel"><div className="form-panel-heading"><span>BEGIN BIJ JOUW PROCES</span><p>* verplicht</p></div><LeadForm /></div>
         </section>
       </main>
 
       <SiteFooter />
-      <TrackedLink className="mobile-sticky-cta" href="#scan" event="cta_click" location="mobile_sticky">Vraag de gratis scan aan <span aria-hidden="true">↗</span></TrackedLink>
+      <TrackedLink className="mobile-sticky-cta" href="#scan" event="cta_click" location="mobile_sticky">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></TrackedLink>
     </>
   );
 }

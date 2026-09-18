@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
+import { homeSeo } from "@/lib/content";
 
-const title = "AI en automatisering voor het mkb | ProcesMaat";
-const description = "Laat AI, software en systeemkoppelingen het terugkerende werk doen. ProcesMaat bouwt automatisering voor het mkb. Ontdek de kansen in een gratis scan.";
+const { title, description } = homeSeo;
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#101923" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f3f0e8" };
 
 const socialImage = new URL("/og.png", siteConfig.siteUrl).toString();
 

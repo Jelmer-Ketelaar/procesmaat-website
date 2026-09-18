@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { KnowledgeArticle } from "@/lib/knowledge";
 import type { ServicePageContent } from "@/lib/services";
 import { siteConfig } from "@/lib/site-config";
 
@@ -13,10 +14,12 @@ export function pageMetadata({
   title,
   description,
   path,
+  socialPreview = true,
 }: {
   title: string;
   description: string;
   path: string;
+  socialPreview?: boolean;
 }): Metadata {
   return {
     title,
@@ -29,9 +32,9 @@ export function pageMetadata({
       title,
       description,
       url: path,
-      images: [socialImage],
+      images: socialPreview ? [socialImage] : [],
     },
-    twitter: { card: "summary_large_image", title, description, images: [socialImage.url] },
+    twitter: { card: "summary_large_image", title, description, images: socialPreview ? [socialImage.url] : [] },
   };
 }
 
@@ -40,5 +43,27 @@ export function serviceMetadata(service: ServicePageContent): Metadata {
     title: service.metaTitle,
     description: service.metaDescription,
     path: `/${service.slug}`,
+    socialPreview: false,
   });
+}
+
+export function knowledgeMetadata(article: KnowledgeArticle): Metadata {
+  const path = `/kennisbank/${article.slug}`;
+  const metadata = pageMetadata({
+    title: article.metaTitle,
+    description: article.metaDescription,
+    path,
+    socialPreview: false,
+  });
+
+  return {
+    ...metadata,
+    openGraph: {
+      ...metadata.openGraph,
+      type: "article",
+      publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt,
+      images: [],
+    },
+  };
 }

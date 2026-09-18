@@ -8,6 +8,7 @@ import { TrackedLink } from "./tracked-link";
 const navItems = [
   ["AI-automatisering", "/ai-automatisering"],
   ["Diensten", "/diensten"],
+  ["Investering", "/#investering"],
   ["Werkwijze", "/#werkwijze"],
 
 ] as const;
@@ -57,7 +58,7 @@ export function SiteHeader() {
       </nav>
 
       <TrackedLink className="button button-small header-cta" href="/#scan" event="cta_click" location="header">
-        Vraag de gratis scan aan
+        Ontvang gratis digitaal advies
       </TrackedLink>
 
       <button
@@ -80,7 +81,7 @@ export function SiteHeader() {
               <span>0{index + 1}</span>{label}
             </a>
           ))}
-          <a href="/privacy" onClick={closeMenu}><span>04</span>Privacy</a>
+          <a href="/privacy" onClick={closeMenu}><span>05</span>Privacy</a>
         </nav>
       </div>
     </header>
