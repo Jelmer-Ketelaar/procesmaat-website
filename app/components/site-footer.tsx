@@ -22,9 +22,10 @@ export function SiteFooter() {
         <span>PROCESMAAT</span>
         <Link href="/diensten">Alle diensten</Link>
         <Link href="/kennisbank">Kennisbank</Link>
+        <Link href="/#investering">Investering</Link>
         <Link href="/#werkwijze">Werkwijze</Link>
         <Link href="/#veelgestelde-vragen">Veelgestelde vragen</Link>
-        <Link href="/#scan">Gratis automatiseringsscan</Link>
+        <Link href="/#scan">Gratis digitaal automatiseringsadvies</Link>
       </div>
       <div className="footer-column">
         <span>CONTACT & JURIDISCH</span>

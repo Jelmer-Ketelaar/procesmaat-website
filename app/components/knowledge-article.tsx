@@ -64,7 +64,7 @@ export function KnowledgeArticlePage({ article }: { article: KnowledgeArticle })
                 <span>OP DEZE PAGINA</span>
                 {article.sections.map((section) => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}
               </nav>
-              <Link className="button" href="/#scan">Vraag een gratis scan aan <span aria-hidden="true">↗</span></Link>
+              <Link className="button" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
             </aside>
 
             <article className="knowledge-content">
@@ -109,9 +109,9 @@ export function KnowledgeArticlePage({ article }: { article: KnowledgeArticle })
               <section className="knowledge-next" aria-labelledby="knowledge-next-title">
                 <p className="eyebrow light"><span /> Van uitleg naar jouw proces</p>
                 <h2 id="knowledge-next-title">Begin bij één concrete werkwijze.</h2>
-                <p>Gebruik de gratis scan om een terugkerend proces, de uitzonderingen en een passende eerste stap te onderzoeken. We benoemen het ook als een standaardfunctie of eenvoudiger aanpassing waarschijnlijk beter past.</p>
+                <p>Gebruik het digitale advies om een terugkerend proces, de uitzonderingen en een passende eerste stap te onderzoeken. We benoemen het ook als een standaardfunctie of eenvoudiger aanpassing waarschijnlijk beter past.</p>
                 <div>
-                  <Link className="button button-lime" href="/#scan">Vraag de gratis scan aan <span aria-hidden="true">↗</span></Link>
+                  <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
                   <Link className="knowledge-service-link" href={article.primaryService}>{article.primaryServiceLabel} <span aria-hidden="true">→</span></Link>
                 </div>
               </section>

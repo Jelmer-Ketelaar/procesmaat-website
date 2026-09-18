@@ -45,11 +45,9 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
             </div>
             <div className="service-hero-copy">
               <p>{service.intro}</p>
-              <Link className="button" href="/#scan">Vraag een gratis scan aan <span aria-hidden="true">↗</span></Link>
+              <Link className="button" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
             </div>
           </header>
-
-          <nav className="service-jump-links" aria-label="Op deze pagina"><a href="#service-fit-title">Past dit bij ons?</a><a href="#service-explanation-title">Aanpak</a><a href="#service-examples-title">Voorbeelden</a><a href="#service-faq-title">Kosten & vragen</a></nav>
 
           <section className="service-fit section-rule" aria-labelledby="service-fit-title">
             <div className="section-label"><span>01</span><p>Herkenning</p></div>
@@ -120,11 +118,11 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
 
           <section className="service-cta" aria-labelledby="service-cta-title">
             <div>
-              <p className="eyebrow light"><span /> Gratis automatiseringsscan</p>
+              <p className="eyebrow light"><span /> Gratis digitaal automatiseringsadvies</p>
               <h2 id="service-cta-title">Begin met één terugkerend proces.</h2>
-              <p>Beschrijf waar werk blijft liggen. In 30 minuten onderzoeken we samen of vereenvoudigen, koppelen of maatwerk een zinvolle volgende stap is.</p>
+              <p>Beschrijf je proces, gebruikte software en gewenste resultaat. Binnen één werkdag ontvang je een eerste advies per e-mail. Helemaal online, zonder afspraak.</p>
             </div>
-            <Link className="button button-lime" href="/#scan">Vraag de gratis scan aan <span aria-hidden="true">↗</span></Link>
+            <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
           </section>
         </div>
       </main>

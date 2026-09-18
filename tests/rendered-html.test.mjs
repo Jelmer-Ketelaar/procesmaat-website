@@ -38,6 +38,9 @@ function validLead(overrides = {}) {
     companySize: "11-25",
     processDescription: "Iedere week nemen we projectgegevens handmatig over in een rapportage.",
     hoursPerWeek: "6-10",
+    softwareTools: "Excel en Moneybird",
+    desiredOutcome: "Een gecontroleerd boekingsvoorstel klaarzetten in Moneybird.",
+    weeklyVolume: "25-100",
     attribution: {
       utm_source: "linkedin",
       utm_campaign: "scan",
@@ -81,7 +84,7 @@ test("server-renders the complete Dutch landing page with the accessible form co
   assert.match(html, /<html lang="nl">/i);
   assert.match(html, /Handwerk eruit\./);
   assert.match(html, /AI-automatisering voor het mkb/);
-  assert.match(html, /Vraag de gratis scan aan/);
+  assert.match(html, /Ontvang gratis digitaal advies/);
   assert.match(html, /Ga naar de hoofdinhoud/);
   assert.match(html, /<input(?=[^>]*name="name")(?=[^>]*required="")[^>]*>/i);
   assert.match(html, /<input(?=[^>]*name="email")(?=[^>]*maxlength="254")[^>]*>/i);
@@ -98,7 +101,7 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /property="og:image:width" content="1200"/i);
   assert.match(html, /property="og:image:height" content="629"/i);
   assert.match(html, /name="robots" content="noindex, nofollow"/i);
-  assert.match(html, /AI en automatisering voor het mkb \| ProcesMaat/);
+  assert.match(html, /AI &amp; Automatisering voor het MKB \| ProcesMaat Software/);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /"@type":"Organization"/);
   assert.doesNotMatch(html, /"@type":"FAQPage"/);
@@ -106,11 +109,12 @@ test("home metadata uses one validated test origin and the actual social-card di
 
 test("commercial service pages render unique search metadata, useful content and structured data", async () => {
   const pages = [
-    ["/ai-automatisering", "AI-automatisering voor bedrijven en het mkb", "Waar kan AI jouw team werk uit handen nemen"],
-    ["/ai-agents", "AI-agent laten bouwen voor je bedrijf", "Wanneer is een AI-agent een logische stap"],
+    ["/ai-automatisering", "Slimme AI-Automatisering &amp; AI-Agents voor Bedrijven", "Waar kan AI jouw team werk uit handen nemen"],
+    ["/factuur-documentverwerking", "Automatische Factuur- &amp; Documentverwerking", "Waar blijft tijd liggen bij het verwerken van documenten"],
     ["/procesautomatisering", "Procesautomatisering voor het mkb", "Wanneer is een proces geschikt voor automatisering"],
     ["/maatwerksoftware", "Maatwerksoftware voor het mkb", "Wanneer past maatwerksoftware bij je bedrijf"],
-    ["/systeemkoppelingen", "Systemen koppelen en API-koppelingen", "Wanneer helpt een systeemkoppeling"],
+    ["/crm-boekhouding-koppelen", "CRM en boekhouding koppelen", "Herken je dit tussen verkoop en administratie"],
+    ["/systeemkoppelingen", "Systemen Koppelen via API &amp; Webhooks", "Wanneer helpt een systeemkoppeling"],
   ];
 
   for (const [path, metadataTitle, heading] of pages) {
@@ -124,7 +128,40 @@ test("commercial service pages render unique search metadata, useful content and
     assert.match(html, /"@type":"BreadcrumbList"/, path);
     assert.doesNotMatch(html, /"@type":"FAQPage"/, path);
     assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i, path);
-    assert.match(html, /Vraag een gratis scan aan/, path);
+    assert.match(html, /Ontvang gratis digitaal advies/, path);
+  }
+});
+
+test("knowledge hub and articles render unique metadata, article schema and practical internal routes", async () => {
+  const hub = await request("/kennisbank");
+  assert.equal(hub.status, 200);
+  const hubHtml = await hub.text();
+  assert.match(hubHtml, /Kennisbank over procesautomatisering \| ProcesMaat/);
+  assert.match(hubHtml, /rel="canonical" href="https:\/\/procesmaat\.test\/kennisbank"/i);
+  assert.match(hubHtml, /"@type":"ItemList"/);
+  assert.match(hubHtml, /href="\/kennisbank\/bedrijfsprocessen-automatiseren"/);
+
+  const pages = [
+    ["bedrijfsprocessen-automatiseren", "Bedrijfsprocessen automatiseren voor het mkb | ProcesMaat", "/procesautomatisering"],
+    ["welk-proces-automatiseren", "Welk proces automatiseren? Praktische keuzehulp", "/procesautomatisering"],
+    ["maatwerksoftware-of-standaardpakket", "Maatwerksoftware of standaardpakket kiezen", "/maatwerksoftware"],
+    ["api-koppeling-checklist", "API-koppeling checklist voor het mkb", "/systeemkoppelingen"],
+  ];
+
+  for (const [slug, title, servicePath] of pages) {
+    const path = `/kennisbank/${slug}`;
+    const response = await request(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.ok(html.includes(title), path);
+    assert.ok(html.includes(`rel="canonical" href="https://procesmaat.test${path}"`), path);
+    assert.equal((html.match(/<h1\b/gi) ?? []).length, 1, path);
+    assert.match(html, /"@type":"Article"/, path);
+    assert.match(html, /"@type":"BreadcrumbList"/, path);
+    assert.match(html, /"datePublished":"2026-08-25"/, path);
+    assert.match(html, new RegExp(`href="${servicePath}"`), path);
+    assert.match(html, /href="\/#scan"/, path);
+    assert.doesNotMatch(html, /property="og:image"|name="twitter:image"|"@type":"FAQPage"/i, path);
   }
 });
 
@@ -198,8 +235,6 @@ test("sitemap uses the same configured public origin", async () => {
   const xml = await response.text();
   assert.match(xml, /https:\/\/procesmaat\.test\/?</);
   assert.match(xml, /https:\/\/procesmaat\.test\/diensten/);
-  assert.match(xml, /https:\/\/procesmaat\.test\/ai-automatisering/);
-  assert.match(xml, /https:\/\/procesmaat\.test\/ai-agents/);
   assert.match(xml, /https:\/\/procesmaat\.test\/procesautomatisering/);
   assert.match(xml, /https:\/\/procesmaat\.test\/maatwerksoftware/);
   assert.match(xml, /https:\/\/procesmaat\.test\/systeemkoppelingen/);
@@ -299,7 +334,7 @@ test("lead endpoint returns explicit Dutch field errors", async () => {
   const json = await response.json();
   assert.equal(json.error, "Controleer de gemarkeerde velden.");
   assert.equal(json.fields.name[0], "Vul je naam in (minimaal 2 tekens).");
-  assert.equal(json.fields.companyName[0], "Vul je bedrijfsnaam in (minimaal 2 tekens).");
+  assert.equal(json.fields.companyName, undefined);
   assert.equal(json.fields.email[0], "Vul een geldig e-mailadres in.");
   assert.equal(json.fields.processDescription[0], "Beschrijf het proces in minimaal 20 tekens.");
   assert.equal(json.accepted, undefined);
@@ -407,6 +442,8 @@ test("values above every configured maximum are rejected without webhook traffic
     ["companyName", "B".repeat(151)],
     ["email", `${"e".repeat(247)}@test.nl`],
     ["phone", "1".repeat(51)],
+    ["softwareTools", "S".repeat(401)],
+    ["desiredOutcome", "D".repeat(1201)],
     ["processDescription", "P".repeat(1201)],
   ]) {
     const response = await withFetchStub(
@@ -517,17 +554,66 @@ test("production redirects the www host permanently to the canonical apex host",
 });
 
 
-test("AI landing page exposes useful demo content and crawlable service links without JavaScript", async () => {
-  const html = await (await request("/")).text();
-  assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
-  assert.match(html, /Laat je bedrijf/);
-  assert.match(html, /Illustratie met fictieve gegevens/);
-  assert.match(html, /Conceptantwoord \+ taak in je CRM/);
-  assert.match(html, /aria-pressed="true"/);
-  assert.match(html, /href="\/ai-automatisering"/);
-  assert.match(html, /href="\/ai-agents"/);
+test("scan accepts omitted company details and delivers with a useful subject", async () => {
+  for (const companyName of [undefined, ""]) {
+    let delivered;
+    await withFetchStub(async (_url, init) => {
+      delivered = JSON.parse(init.body);
+      return new Response("{}", { status: 200 });
+    }, async () => {
+      const response = await request("/api/leads", leadRequest(validLead({ companyName, companySize: undefined, hoursPerWeek: "unknown" })), { LEAD_WEBHOOK_URL: "https://formspree.io/f/test" });
+      assert.equal(response.status, 200);
+      assert.equal((await response.json()).accepted, true);
+      assert.equal(delivered.companyName, "");
+      assert.equal(delivered._subject, "Nieuwe scanaanvraag: Sam de Vries");
+      assert.equal(delivered.companySize, undefined);
+    });
+  }
 });
 
-test("unknown URLs return a real 404 rather than a search-indexable success page", async () => {
-  assert.equal((await request("/dit-bestaat-niet")).status, 404);
+test("scan leads with the process and offers accessible hour choices", async () => {
+  const html = await (await request()).text();
+  assert.ok(html.indexOf('id="processDescription"') < html.indexOf('id="name"'));
+  assert.match(html, /<input(?=[^>]*name="hoursPerWeek")(?=[^>]*type="radio")[^>]*>/);
+  assert.doesNotMatch(html, /<input(?=[^>]*name="companyName")(?=[^>]*required="")[^>]*>/);
+  assert.doesNotMatch(html, /name="companySize"/);
+  assert.match(html, /id="quickscan"/);
+  assert.match(html, /Je antwoorden blijven op deze pagina/);
+});
+
+
+test("digital intake requires useful process details before delivery", async () => {
+  for (const [field, value] of [["softwareTools", ""], ["desiredOutcome", "te kort"], ["weeklyVolume", "invalid"]]) {
+    let delivered = false;
+    const response = await withFetchStub(async () => { delivered = true; return new Response("{}"); },
+      () => request("/api/leads", leadRequest(validLead({ [field]: value })), { LEAD_WEBHOOK_URL: "https://formspree.io/f/test" }));
+    assert.equal(response.status, 400);
+    assert.ok((await response.json()).fields[field]);
+    assert.equal(delivered, false);
+  }
+});
+
+test("digital intake includes software, volume and goal in the delivered advice request", async () => {
+  let payload;
+  const response = await withFetchStub(async (_url, init) => { payload = JSON.parse(init.body); return new Response("{}"); },
+    () => request("/api/leads", leadRequest(validLead()), { LEAD_WEBHOOK_URL: "https://formspree.io/f/test" }));
+  assert.equal(response.status, 200);
+  assert.equal(payload.softwareTools, "Excel en Moneybird");
+  assert.equal(payload.weeklyVolume, "25-100");
+  assert.equal(payload.desiredOutcome, validLead().desiredOutcome);
+});
+
+test("the release preserves AI pages and promotes an asynchronous one-workday journey", async () => {
+  for (const path of ["/", "/ai-agents", "/ai-automatisering", "/factuur-documentverwerking", "/crm-boekhouding-koppelen", "/kennisbank"]) {
+    const response = await request(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.doesNotMatch(html, /30 minuten|geschikt moment|video-meeting/, path);
+    assert.match(html, /[Bb]innen één werkdag/, path);
+  }
+  const html = await (await request()).text();
+  assert.match(html, /Interactief voorbeeld van AI-automatisering/);
+  assert.match(html, /id="investering"/);
+  assert.match(html, /vaste projectprijs, exclusief btw/);
+  assert.doesNotMatch(html, /99,4|€950|€1.950/);
 });

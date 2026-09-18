@@ -25,10 +25,10 @@ export default function PrivacyPage() {
         <div className="privacy-hero">
           <p className="eyebrow"><span /> Privacy</p>
           <h1>Helder over je gegevens.</h1>
-          <p>Dit privacybeleid beschrijft welke persoonsgegevens we verwerken wanneer je contact opneemt of een gratis automatiseringsscan aanvraagt.</p>
+          <p>Dit privacybeleid beschrijft welke persoonsgegevens we verwerken wanneer je contact opneemt of gratis digitaal automatiseringsadvies aanvraagt.</p>
         </div>
 
-        {!siteConfig.legalReviewCompleted && (
+        {!siteConfig.isProduction && !siteConfig.legalReviewCompleted && (
           <aside className="privacy-review-note">
             <strong>Voor publicatie controleren</strong>
             <p>Deze concepttekst bevat bewust configureerbare waarden. Vul de bewaartermijn en subverwerkers via de productieconfiguratie in en laat de definitieve tekst professioneel beoordelen voor jouw situatie.</p>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
             <section id="gegevens">
               <span className="privacy-number">02</span>
               <h2>Welke gegevens verwerken we?</h2>
-              <p>Als je het formulier invult, verwerken we je naam, bedrijfsnaam, e-mailadres, bedrijfsgrootte, je procesomschrijving en de geschatte tijd die het proces kost.</p>
+              <p>Als je het formulier invult, verwerken we je naam, e-mailadres, optioneel je bedrijfsnaam, je procesomschrijving, gebruikte software, gewenste resultaat, geschatte aantallen per week en de tijd die het proces kost.</p>
               <p>Als je via een campagnelink binnenkomt, kunnen uitsluitend de aanwezige UTM-categorieën en het landingspad met de aanvraag worden meegestuurd. We slaan hiervoor geen advertentie-identifiers, cookies of lokaal bezoekersprofiel op.</p>
               <p>De website kan daarnaast strikt noodzakelijke technische gegevens verwerken om de pagina veilig te leveren en misbruik te voorkomen. Deel in het formulier geen bijzondere of gevoelige persoonsgegevens.</p>
             </section>
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
             <section id="doelen">
               <span className="privacy-number">03</span>
               <h2>Waarom verwerken we gegevens?</h2>
-              <p>We gebruiken formuliergegevens om je aanvraag te beoordelen, contact met je op te nemen en de gratis automatiseringsscan voor te bereiden. De verwerking is gebaseerd op je verzoek om vóór een mogelijke overeenkomst met elkaar in gesprek te gaan en, waar van toepassing, op ons gerechtvaardigd belang om aanvragen zorgvuldig af te handelen.</p>
+              <p>We gebruiken formuliergegevens om je aanvraag te beoordelen, contact met je op te nemen en het gratis digitale automatiseringsadvies voor te bereiden. De verwerking is gebaseerd op je verzoek om vóór een mogelijke overeenkomst digitaal advies te ontvangen en, waar van toepassing, op ons gerechtvaardigd belang om aanvragen zorgvuldig af te handelen.</p>
               <p>We gebruiken je aanvraag niet automatisch voor een nieuwsbrief of andere marketing waar aparte toestemming voor nodig is.</p>
             </section>
 

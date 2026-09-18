@@ -2,7 +2,7 @@
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
 import { z } from "zod";
-import { companySizeValues, hoursPerWeekValues, isSafeEmailAddress, leadFieldLimits } from "../lib/lead-fields";
+import { companySizeValues, hoursPerWeekValues, weeklyVolumeValues, isSafeEmailAddress, leadFieldLimits } from "../lib/lead-fields";
 
 const MAX_REQUEST_BYTES = 20_000;
 const CANONICAL_HOST = "procesmaatsoftware.nl";
@@ -24,8 +24,8 @@ const leadSchema = z.object({
     .min(leadFieldLimits.name.min, "Vul je naam in (minimaal 2 tekens).")
     .max(leadFieldLimits.name.max, "Je naam mag maximaal 100 tekens bevatten."),
   companyName: z.string({ error: "Vul je bedrijfsnaam in (minimaal 2 tekens)." }).trim()
-    .min(leadFieldLimits.companyName.min, "Vul je bedrijfsnaam in (minimaal 2 tekens).")
-    .max(leadFieldLimits.companyName.max, "De bedrijfsnaam mag maximaal 150 tekens bevatten."),
+    .refine((value) => !value || value.length >= leadFieldLimits.companyName.min, "Vul je bedrijfsnaam in (minimaal 2 tekens).")
+    .max(leadFieldLimits.companyName.max, "De bedrijfsnaam mag maximaal 150 tekens bevatten.").optional().default(""),
   email: z.string({ error: "Vul een geldig e-mailadres in." })
     .max(leadFieldLimits.email.max, "Het e-mailadres mag maximaal 254 tekens bevatten.")
     .refine(isSafeEmailAddress, "Vul een geldig e-mailadres in."),
@@ -33,11 +33,18 @@ const leadSchema = z.object({
     .max(leadFieldLimits.phone.max, "Het telefoonnummer mag maximaal 50 tekens bevatten.")
     .optional()
     .default(""),
-  companySize: z.enum(companySizeValues, { error: "Kies je bedrijfsgrootte." }),
+  companySize: z.enum(companySizeValues, { error: "Kies je bedrijfsgrootte." }).optional(),
   processDescription: z.string({ error: "Beschrijf het proces in minimaal 20 tekens." }).trim()
     .min(leadFieldLimits.processDescription.min, "Beschrijf het proces in minimaal 20 tekens.")
     .max(leadFieldLimits.processDescription.max, "De procesomschrijving mag maximaal 1200 tekens bevatten."),
   hoursPerWeek: z.enum(hoursPerWeekValues, { error: "Maak een inschatting van het aantal uren." }),
+  softwareTools: z.string({ error: "Noem de software die je gebruikt." }).trim()
+    .min(leadFieldLimits.softwareTools.min, "Noem de software die je gebruikt.")
+    .max(leadFieldLimits.softwareTools.max, "Gebruik maximaal 400 tekens voor je software."),
+  desiredOutcome: z.string({ error: "Beschrijf het gewenste resultaat in minimaal 10 tekens." }).trim()
+    .min(leadFieldLimits.desiredOutcome.min, "Beschrijf het gewenste resultaat in minimaal 10 tekens.")
+    .max(leadFieldLimits.desiredOutcome.max, "Gebruik maximaal 1200 tekens voor het gewenste resultaat."),
+  weeklyVolume: z.enum(weeklyVolumeValues, { error: "Kies een aantal of kies ‘Weet ik nog niet’." }),
   attribution: attributionSchema.optional().default({ landing_path: "/" }),
   website: z.string().max(200, "De aanvraag kon niet worden verwerkt.").optional().default(""),
 }).strict();
@@ -189,7 +196,7 @@ function formspreeSubmission(lead: LeadDelivery) {
   return {
     ...fields,
     ...attribution,
-    _subject: `Nieuwe scanaanvraag: ${fields.companyName}`,
+    _subject: `Nieuwe scanaanvraag: ${fields.companyName || fields.name}`,
   };
 }
 

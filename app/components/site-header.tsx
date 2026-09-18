@@ -9,6 +9,7 @@ const navItems = [
   ["AI-automatisering", "/ai-automatisering"],
   ["Diensten", "/diensten"],
   ["Kennisbank", "/kennisbank"],
+  ["Investering", "/#investering"],
   ["Werkwijze", "/#werkwijze"],
 
 ] as const;
@@ -58,7 +59,7 @@ export function SiteHeader() {
       </nav>
 
       <TrackedLink className="button button-small header-cta" href="/#scan" event="cta_click" location="header">
-        Vraag de gratis scan aan
+        Ontvang gratis digitaal advies
       </TrackedLink>
 
       <button

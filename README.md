@@ -107,4 +107,27 @@ npm run build:production
 
 `dev` is de ontwikkelbranch en `main` bevat uitsluitend de gevalideerde productiebron. De GitHub Actions-workflow voert lint, typecheck, tests en een build uit op beide branches en op pull requests. Hij publiceert niet zelfstandig.
 
-De site wordt uitsluitend via OpenAI Sites gepubliceerd. Daardoor blijft iedere productieversie gekoppeld aan één controleerbare `main`-commit en kan een eerdere versie vanuit Sites worden teruggezet. Zie [`docs/seo-benchmark-2026-08-25.md`](./docs/seo-benchmark-2026-08-25.md) voor de actuele zoekbenchmark, het paginamodel en het 30/60/90-dagenplan.
+- De homepage geeft een breed overzicht; `/ai-automatisering` richt zich op het automatiseren van tekst- en documentprocessen, `/ai-agents` op gerichte assistenten met kennisbronnen en begrensde hulpmiddelen.
+- De productiebuild gebruikt `https://procesmaatsoftware.nl`, gelijk aan de bestaande www-redirect. Iedere dienst heeft een eigen canonical, titel, beschrijving, zichtbare FAQ en Service/Breadcrumb-gegevens. De sitemap wordt uit dezelfde dienstenlijst opgebouwd; wijzig redactionele datums alleen bij echte inhoudelijke wijzigingen.
+- Zie [`docs/seo-benchmark-2026-08-25.md`](./docs/seo-benchmark-2026-08-25.md) voor de zoekbenchmark, het paginamodel en het 30/60/90-dagenplan.
+- De interactieve homepagevoorbeelden zijn lokale demonstraties met fictieve gegevens. Ze doen geen modelaanroepen, slaan niets op en presenteren geen gemeten klantresultaten. De eerste demonstratie is ook server-rendered leesbaar.
+- Bestaande social-previewafbeeldingen, leadvalidatie, webhookaflevering en privacyvriendelijke analytics blijven behouden. Er zijn geen advertentietrackers toegevoegd.
+
+### Na publicatie
+
+1. Controleer in Google Search Console de domeineigenschap `procesmaatsoftware.nl` en dien `https://procesmaatsoftware.nl/sitemap.xml` in. De bestaande optionele `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` ondersteunt verificatie met een HTML-metatag voor een URL-prefixeigenschap; een domeineigenschap vereist DNS-verificatie.
+2. Inspecteer de homepage en beide AI-pagina’s met URL-inspectie en controleer indexeerbaarheid, gekozen canonical en gerenderde inhoud. Dien belangrijke nieuwe URL’s zo nodig in voor indexering.
+3. Beoordeel prestaties per pagina en zoekvraag: vertoningen, klikken, CTR en relevante aanvragen. Geen ranking of tijdwinst is vooraf gegarandeerd.
+4. Publiceer echte praktijkcases zodra daarvoor bewijs en toestemming beschikbaar zijn. Beschrijf het oorspronkelijke probleem, de aanpak en gemeten uitkomsten inclusief beperkingen. Voeg geen verzonnen referenties of resultaten toe.
+5. Meet mobiele praktijkprestaties zodra er voldoende verkeer is; een succesvolle build is geen Core Web Vitals-meting.
+
+Bronnen: [Google SEO Starter Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) en [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features). Voor AI-zoekfuncties blijven de normale SEO-principes gelden; extra speciale AI-markup is niet nodig.
+
+
+## Digitale adviesaanvraag
+
+De aanvraag verloopt volledig via het formulier en e-mail. De bezoeker ontvangt binnen één werkdag een eerste advies; eventuele aanvullende vragen volgen per e-mail. Er worden geen afspraken of live scans aangeboden.
+
+Het formulier verstuurt ook `softwareTools` (2–400 tekens), `desiredOutcome` (10–1200 tekens) en `weeklyVolume` (less-than-25, 25-100, 101-500, more-than-500 of unknown). Deze velden zijn server-side verplicht en gaan mee naar de bestaande webhook. Bedrijfsnaam is optioneel en bedrijfsgrootte wordt niet meer gevraagd. De zelftest bewaart antwoorden alleen in de pagina.
+
+De investering wordt na afbakening aangeboden als vaste projectprijs exclusief btw. Hosting, modelgebruik, onderhoud en monitoring worden apart benoemd. De voorbeeldprocessen zijn illustraties, geen klantcases of gemeten prestaties.

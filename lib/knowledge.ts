@@ -151,7 +151,7 @@ export const knowledgeArticles: Record<KnowledgeSlug, KnowledgeArticle> = {
         id: "scorekaart",
         title: "Beoordeel iedere kandidaat op zes criteria",
         paragraphs: [
-          "Geef ieder criterium één tot vijf punten. Een hoge frequentie en veel handwerk verhogen de kans; onduidelijke regels en hoge impact verlagen de geschiktheid voor een eerste project. Gebruik de totaalscore als gespreksmiddel, niet als automatische beslissing.",
+          "Geef ieder criterium één tot vijf punten. Een hoge frequentie en veel handwerk verhogen de kans; onduidelijke regels en hoge impact verlagen de geschiktheid voor een eerste project. Gebruik de totaalscore als hulpmiddel bij de afweging, niet als automatische beslissing.",
         ],
         table: {
           caption: "Scorekaart voor een eerste automatiseringskans",
@@ -192,7 +192,7 @@ export const knowledgeArticles: Record<KnowledgeSlug, KnowledgeArticle> = {
       },
       {
         id: "scan-voorbereiden",
-        title: "Neem dit mee naar een procesgesprek",
+        title: "Vermeld dit in je digitale aanvraag",
         bullets: [
           { title: "Drie echte voorbeelden", text: "Een normale aanvraag, een onvolledige aanvraag en een afwijkende situatie." },
           { title: "Betrokken systemen", text: "Namen van gebruikte pakketten en, indien bekend, beschikbare API’s, webhooks of exports." },

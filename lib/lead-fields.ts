@@ -4,6 +4,8 @@ export const leadFieldLimits = {
   email: { max: 254 },
   phone: { max: 50 },
   processDescription: { min: 20, max: 1200 },
+  softwareTools: { min: 2, max: 400 },
+  desiredOutcome: { min: 10, max: 1200 },
   attribution: { max: 100 },
   landingPath: { max: 300 },
 } as const;
@@ -59,3 +61,5 @@ export const attributionQueryKeys = [
 ] as const;
 
 export type AttributionQueryKey = (typeof attributionQueryKeys)[number];
+
+export const weeklyVolumeValues = ["less-than-25", "25-100", "101-500", "more-than-500", "unknown"] as const;

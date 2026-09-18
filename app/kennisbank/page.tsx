@@ -56,8 +56,8 @@ export default function KennisbankPage() {
           </section>
 
           <section className="service-cta" aria-labelledby="knowledge-cta-title">
-            <div><p className="eyebrow light"><span /> Gratis automatiseringsscan</p><h2 id="knowledge-cta-title">Leg één terugkerend proces op tafel.</h2><p>In 30 minuten brengen we de hoofdroute en uitzonderingen in beeld en onderzoeken we of vereenvoudigen, koppelen of maatwerk een logische volgende stap is.</p></div>
-            <Link className="button button-lime" href="/#scan">Vraag de gratis scan aan <span aria-hidden="true">↗</span></Link>
+            <div><p className="eyebrow light"><span /> Gratis digitaal automatiseringsadvies</p><h2 id="knowledge-cta-title">Leg één terugkerend proces op tafel.</h2><p>Beschrijf je proces in het formulier. Binnen één werkdag ontvang je een eerste advies per e-mail over vereenvoudigen, koppelen of maatwerk. Een afspraak is niet nodig.</p></div>
+            <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
           </section>
         </div>
       </main>
