@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { TrackedLink } from "./tracked-link";
 
@@ -48,13 +47,13 @@ export function SiteHeader() {
 
   return (
     <header className="site-header">
-      <Link className="brand" href="/" aria-label={`${siteConfig.name} — homepage`}>
+      <a className="brand" href="/" aria-label={`${siteConfig.name} — homepage`}>
         <span className="brand-mark" aria-hidden="true">P</span>
         <span>{siteConfig.name}</span>
-      </Link>
+      </a>
 
       <nav className="desktop-nav" aria-label="Hoofdnavigatie">
-        {navItems.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+        {navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
       </nav>
 
       <TrackedLink className="button button-small header-cta" href="/#scan" event="cta_click" location="header">
@@ -77,12 +76,12 @@ export function SiteHeader() {
       <div className={`mobile-nav ${menuOpen ? "is-open" : ""}`} id="mobiele-navigatie" aria-hidden={!menuOpen} inert={!menuOpen}>
         <nav aria-label="Mobiele navigatie">
           {navItems.map(([label, href], index) => (
-            <Link key={href} href={href} onClick={closeMenu}>
+            <a key={href} href={href} onClick={closeMenu}>
               <span>0{index + 1}</span>{label}
-            </Link>
+            </a>
           ))}
-          <Link href="/#investering" onClick={closeMenu}><span>05</span>Investering</Link>
-          <Link href="/privacy" onClick={closeMenu}><span>06</span>Privacy</Link>
+          <a href="/#investering" onClick={closeMenu}><span>05</span>Investering</a>
+          <a href="/privacy" onClick={closeMenu}><span>06</span>Privacy</a>
         </nav>
       </div>
     </header>

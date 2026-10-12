@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
 
@@ -22,8 +21,8 @@ export default function NotFound() {
           <h1>Deze pagina is niet gevonden.</h1>
           <p>De link kan verouderd zijn of de pagina is verplaatst. Kies een veilige route terug naar de informatie die je zoekt.</p>
           <div>
-            <Link className="button" href="/">Naar de homepage <span aria-hidden="true">→</span></Link>
-            <Link className="text-link" href="/kennisbank">Bekijk de kennisbank <span aria-hidden="true">↗</span></Link>
+            <a className="button" href="/">Naar de homepage <span aria-hidden="true">→</span></a>
+            <a className="text-link" href="/kennisbank">Bekijk de kennisbank <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </main>

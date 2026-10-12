@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 
 const privacyTitle = `Privacybeleid — ${siteConfig.name}`;
@@ -18,8 +17,8 @@ export default function PrivacyPage() {
   return (
     <>
       <header className="site-header privacy-header">
-        <Link className="brand" href="/"><span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span></Link>
-        <Link className="text-link" href="/">← Terug naar de homepage</Link>
+        <a className="brand" href="/"><span className="brand-mark" aria-hidden="true">P</span><span>{siteConfig.name}</span></a>
+        <a className="text-link" href="/">← Terug naar de homepage</a>
       </header>
       <main className="privacy-page" id="main-content">
         <div className="privacy-hero">

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { JsonLd } from "@/app/components/json-ld";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
@@ -31,7 +30,7 @@ export default function KennisbankPage() {
       <SiteHeader />
       <main id="main-content" className="knowledge-index">
         <div className="knowledge-shell">
-          <nav className="breadcrumbs" aria-label="Broodkruimelpad"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Kennisbank</span></nav>
+          <nav className="breadcrumbs" aria-label="Broodkruimelpad"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Kennisbank</span></nav>
           <header className="knowledge-index-hero">
             <p className="eyebrow"><span /> Kennisbank</p>
             <h1>Praktische keuzes vóór je automatiseert</h1>
@@ -46,9 +45,9 @@ export default function KennisbankPage() {
                 {knowledgeList.map((article, index) => (
                   <article key={article.slug}>
                     <span>0{index + 1} / {article.readingTime}</span>
-                    <h3><Link href={`/kennisbank/${article.slug}`}>{article.title}</Link></h3>
+                    <h3><a href={`/kennisbank/${article.slug}`}>{article.title}</a></h3>
                     <p>{article.metaDescription}</p>
-                    <div><Link href={`/kennisbank/${article.slug}`}>Lees artikel <i aria-hidden="true">↗</i></Link><Link href={article.primaryService}>{article.primaryServiceLabel}</Link></div>
+                    <div><a href={`/kennisbank/${article.slug}`}>Lees artikel <i aria-hidden="true">↗</i></a><a href={article.primaryService}>{article.primaryServiceLabel}</a></div>
                   </article>
                 ))}
               </div>
@@ -57,7 +56,7 @@ export default function KennisbankPage() {
 
           <section className="service-cta" aria-labelledby="knowledge-cta-title">
             <div><p className="eyebrow light"><span /> Gratis digitaal automatiseringsadvies</p><h2 id="knowledge-cta-title">Leg één terugkerend proces op tafel.</h2><p>Beschrijf je proces in het formulier. Binnen één werkdag ontvang je een eerste advies per e-mail over vereenvoudigen, koppelen of maatwerk. Een afspraak is niet nodig.</p></div>
-            <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
+            <a className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></a>
           </section>
         </div>
       </main>

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { AutomationDemo } from "@/app/components/automation-demo";
 import { JsonLd } from "@/app/components/json-ld";
 import { QuickScan } from "@/app/components/quick-scan";
@@ -40,7 +39,7 @@ export default function Home() {
 
         </section>
 
-        <nav className="expertise-strip" aria-label="Onze expertise"><span>VAN IDEE NAAR DAGELIJKS GEBRUIK</span><Link href="/ai-automatisering">AI-automatisering</Link><Link href="/ai-agents">AI-agents</Link><Link href="/systeemkoppelingen">Systeemkoppelingen</Link><Link href="/maatwerksoftware">Maatwerksoftware</Link></nav>
+        <nav className="expertise-strip" aria-label="Onze expertise"><span>VAN IDEE NAAR DAGELIJKS GEBRUIK</span><a href="/ai-automatisering">AI-automatisering</a><a href="/ai-agents">AI-agents</a><a href="/systeemkoppelingen">Systeemkoppelingen</a><a href="/maatwerksoftware">Maatwerksoftware</a></nav>
 
         <section className="problem-section section-rule" aria-labelledby="problem-title">
           <div className="section-label"><span>01</span><p>Herkenbaar?</p></div>
@@ -61,8 +60,8 @@ export default function Home() {
             {automationExamples.map((example) => (
               <article className="example-item" key={example.number}>
                 <div className="example-meta"><span>{example.number}</span><i>{example.tag}</i></div>
-                <h3><Link href={example.href}>{example.title}</Link></h3><p>{example.text}</p>
-                <Link className="example-link" href={example.href} aria-label={`Lees meer over ${example.title.toLowerCase()}`}>Lees meer <span aria-hidden="true">↗</span></Link>
+                <h3><a href={example.href}>{example.title}</a></h3><p>{example.text}</p>
+                <a className="example-link" href={example.href} aria-label={`Lees meer over ${example.title.toLowerCase()}`}>Lees meer <span aria-hidden="true">↗</span></a>
               </article>
             ))}
           </div>
@@ -79,7 +78,7 @@ export default function Home() {
               <span>Webshop<small>Bestelling</small></span><b aria-hidden="true">→</b><span>CRM<small>Klantgegevens</small></span><b aria-hidden="true">→</b><span>Boekhouding<small>Factuur</small></span>
             </div>
             <p className="integration-note">Gebruik je bijvoorbeeld WooCommerce, HubSpot, Exact Online, Moneybird of AFAS? Vertel ons welke pakketten je gebruikt. We controleren per pakket en abonnement welke koppelmogelijkheden beschikbaar zijn.</p>
-            <Link className="text-link" href="/crm-boekhouding-koppelen">CRM en boekhouding koppelen <span aria-hidden="true">↗</span></Link>
+            <a className="text-link" href="/crm-boekhouding-koppelen">CRM en boekhouding koppelen <span aria-hidden="true">↗</span></a>
           </div>
         </section>
 
@@ -181,13 +180,13 @@ export default function Home() {
               {knowledgeList.slice(0, 3).map((article) => (
                 <article key={article.slug}>
                   <span>{article.readingTime}</span>
-                  <h3><Link href={`/kennisbank/${article.slug}`}>{article.title}</Link></h3>
+                  <h3><a href={`/kennisbank/${article.slug}`}>{article.title}</a></h3>
                   <p>{article.metaDescription}</p>
-                  <Link href={`/kennisbank/${article.slug}`}>Lees artikel <i aria-hidden="true">↗</i></Link>
+                  <a href={`/kennisbank/${article.slug}`}>Lees artikel <i aria-hidden="true">↗</i></a>
                 </article>
               ))}
             </div>
-            <Link className="home-knowledge-all" href="/kennisbank">Bekijk de volledige kennisbank <span aria-hidden="true">→</span></Link>
+            <a className="home-knowledge-all" href="/kennisbank">Bekijk de volledige kennisbank <span aria-hidden="true">→</span></a>
           </div>
         </section>
 

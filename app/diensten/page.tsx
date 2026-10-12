@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { JsonLd } from "@/app/components/json-ld";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
@@ -23,7 +22,7 @@ export default function DienstenPage() {
       <SiteHeader />
       <main id="main-content" className="services-page">
         <div className="service-shell">
-          <nav className="breadcrumbs" aria-label="Broodkruimelpad"><Link href="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Diensten</span></nav>
+          <nav className="breadcrumbs" aria-label="Broodkruimelpad"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Diensten</span></nav>
           <header className="services-hero">
             <p className="eyebrow"><span /> Diensten voor het mkb</p>
             <h1>Van terugkerend handwerk naar een beheerste digitale werkwijze</h1>
@@ -40,7 +39,7 @@ export default function DienstenPage() {
                     <span>0{index + 1}</span>
                     <h3>{service.shortTitle}</h3>
                     <p>{service.metaDescription}</p>
-                    <Link href={`/${service.slug}`}>Bekijk {service.shortTitle.toLowerCase()} <i aria-hidden="true">↗</i></Link>
+                    <a href={`/${service.slug}`}>Bekijk {service.shortTitle.toLowerCase()} <i aria-hidden="true">↗</i></a>
                   </article>
                 ))}
               </div>
@@ -59,7 +58,7 @@ export default function DienstenPage() {
           </section>
           <section className="service-cta" aria-labelledby="services-cta-title">
             <div><p className="eyebrow light"><span /> Gratis digitaal automatiseringsadvies</p><h2 id="services-cta-title">Je hoeft de oplossing nog niet te kennen.</h2><p>Begin met het proces dat tijd kost. Samen onderzoeken we welke aanpak passend is en benoemen we het ook als bouwen niet zinvol blijkt.</p></div>
-            <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
+            <a className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></a>
           </section>
         </div>
       </main>

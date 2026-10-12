@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const securityHeaderNames = [
@@ -625,4 +626,23 @@ test("the release preserves AI pages and promotes an asynchronous one-workday jo
   assert.match(html, /id="investering"/);
   assert.match(html, /vaste projectprijs, exclusief btw/);
   assert.doesNotMatch(html, /99,4|€950|€1.950/);
+});
+
+test("navigation uses native anchors that remain functional in the deployed vinext runtime", async () => {
+  const files = [
+    "app/not-found.tsx",
+    "app/diensten/page.tsx",
+    "app/components/service-page.tsx",
+    "app/privacy/page.tsx",
+    "app/components/site-footer.tsx",
+    "app/components/site-header.tsx",
+    "app/kennisbank/page.tsx",
+    "app/components/knowledge-article.tsx",
+    "app/page.tsx",
+  ];
+
+  for (const path of files) {
+    const source = await readFile(new URL(`../${path}`, import.meta.url), "utf8");
+    assert.doesNotMatch(source, /from ["']next\/link["']|<Link\b/, path);
+  }
 });

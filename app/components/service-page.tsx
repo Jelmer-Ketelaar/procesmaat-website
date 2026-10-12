@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { JsonLd } from "@/app/components/json-ld";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
@@ -35,8 +34,8 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
       <main id="main-content" className="service-page">
         <div className="service-shell">
           <nav className="breadcrumbs" aria-label="Broodkruimelpad">
-            <Link href="/">Home</Link><span aria-hidden="true">/</span>
-            <Link href="/diensten">Diensten</Link><span aria-hidden="true">/</span>
+            <a href="/">Home</a><span aria-hidden="true">/</span>
+            <a href="/diensten">Diensten</a><span aria-hidden="true">/</span>
             <span aria-current="page">{service.shortTitle}</span>
           </nav>
 
@@ -47,7 +46,7 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
             </div>
             <div className="service-hero-copy">
               <p>{service.intro}</p>
-              <Link className="button" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
+              <a className="button" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></a>
             </div>
           </header>
 
@@ -113,8 +112,8 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
               <h2 id="related-title">Ook relevant voor jouw proces</h2>
             </div>
             <div className="related-links">
-              {related.map((item) => <Link key={item.slug} href={`/${item.slug}`}>{item.shortTitle}<span aria-hidden="true">↗</span></Link>)}
-              <Link href="/kennisbank">Praktische kennisbank<span aria-hidden="true">↗</span></Link>
+              {related.map((item) => <a key={item.slug} href={`/${item.slug}`}>{item.shortTitle}<span aria-hidden="true">↗</span></a>)}
+              <a href="/kennisbank">Praktische kennisbank<span aria-hidden="true">↗</span></a>
             </div>
           </section>
 
@@ -124,7 +123,7 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
               <h2 id="service-cta-title">Begin met één terugkerend proces.</h2>
               <p>Beschrijf je proces, gebruikte software en het gewenste resultaat. Binnen één werkdag ontvang je een eerste advies per e-mail. Helemaal online, zonder afspraak.</p>
             </div>
-            <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
+            <a className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></a>
           </section>
         </div>
       </main>

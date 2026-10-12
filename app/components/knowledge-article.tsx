@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { JsonLd } from "@/app/components/json-ld";
 import { SiteFooter } from "@/app/components/site-footer";
 import { SiteHeader } from "@/app/components/site-header";
@@ -42,8 +41,8 @@ export function KnowledgeArticlePage({ article }: { article: KnowledgeArticle })
       <main id="main-content" className="knowledge-page">
         <div className="knowledge-shell">
           <nav className="breadcrumbs" aria-label="Broodkruimelpad">
-            <Link href="/">Home</Link><span aria-hidden="true">/</span>
-            <Link href="/kennisbank">Kennisbank</Link><span aria-hidden="true">/</span>
+            <a href="/">Home</a><span aria-hidden="true">/</span>
+            <a href="/kennisbank">Kennisbank</a><span aria-hidden="true">/</span>
             <span aria-current="page">{article.title}</span>
           </nav>
 
@@ -64,7 +63,7 @@ export function KnowledgeArticlePage({ article }: { article: KnowledgeArticle })
                 <span>OP DEZE PAGINA</span>
                 {article.sections.map((section) => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}
               </nav>
-              <Link className="button" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
+              <a className="button" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></a>
             </aside>
 
             <article className="knowledge-content">
@@ -111,8 +110,8 @@ export function KnowledgeArticlePage({ article }: { article: KnowledgeArticle })
                 <h2 id="knowledge-next-title">Begin bij één concrete werkwijze.</h2>
                 <p>Gebruik het digitale advies om een terugkerend proces, de uitzonderingen en een passende eerste stap te onderzoeken. We benoemen het ook als een standaardfunctie of eenvoudiger aanpassing waarschijnlijk beter past.</p>
                 <div>
-                  <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
-                  <Link className="knowledge-service-link" href={article.primaryService}>{article.primaryServiceLabel} <span aria-hidden="true">→</span></Link>
+                  <a className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></a>
+                  <a className="knowledge-service-link" href={article.primaryService}>{article.primaryServiceLabel} <span aria-hidden="true">→</span></a>
                 </div>
               </section>
             </article>
@@ -126,9 +125,9 @@ export function KnowledgeArticlePage({ article }: { article: KnowledgeArticle })
                 {related.map((item) => (
                   <article key={item.slug}>
                     <span>{item.readingTime}</span>
-                    <h3><Link href={`/kennisbank/${item.slug}`}>{item.title}</Link></h3>
+                    <h3><a href={`/kennisbank/${item.slug}`}>{item.title}</a></h3>
                     <p>{item.metaDescription}</p>
-                    <Link href={`/kennisbank/${item.slug}`} aria-label={`Lees ${item.title}`}>Lees artikel <i aria-hidden="true">↗</i></Link>
+                    <a href={`/kennisbank/${item.slug}`} aria-label={`Lees ${item.title}`}>Lees artikel <i aria-hidden="true">↗</i></a>
                   </article>
                 ))}
               </div>
