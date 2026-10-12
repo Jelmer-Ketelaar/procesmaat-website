@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { emitAnalyticsEvent } from "@/lib/analytics";
 import { attributionQueryKeys, isSafeEmailAddress, leadFieldLimits } from "@/lib/lead-fields";
+import { siteConfig } from "@/lib/site-config";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 type FieldErrors = Record<string, string[]>;
@@ -151,7 +152,12 @@ export function LeadForm() {
 
   return (
     <form ref={formRef} className="lead-form" onSubmit={handleSubmit} onFocus={markStarted} noValidate aria-busy={status === "submitting"}>
-      {status === "error" && message && <div className="form-message" role="alert" tabIndex={-1} ref={feedbackRef}>{message}</div>}
+      {status === "error" && message && (
+        <div className="form-message" role="alert" tabIndex={-1} ref={feedbackRef}>
+          <p>{message}</p>
+          <p>Lukt het opnieuw niet? Mail je vraag naar <a href={`mailto:${siteConfig.email}?subject=Vraag%20over%20digitaal%20automatiseringsadvies`}>{siteConfig.email}</a>.</p>
+        </div>
+      )}
 
       <div className="field process-first">
         <label htmlFor="processDescription">Welk terugkerend proces kost nu veel tijd? <span>*</span></label>
@@ -225,6 +231,8 @@ export function LeadForm() {
       <p className="privacy-notice" id="form-privacy-note">
         Door de aanvraag te versturen kan ProcesMaat je gegevens gebruiken om je adviesaanvraag te beoordelen en contact met je op te nemen. Lees het <a href="/privacy" target="_blank" rel="noreferrer" aria-label="Privacybeleid (opent in een nieuw tabblad)">privacybeleid <span aria-hidden="true">↗</span></a>. Deel geen gevoelige persoonsgegevens.
       </p>
+
+      <p className="form-fallback">Liever rechtstreeks mailen? <a href={`mailto:${siteConfig.email}?subject=Vraag%20over%20digitaal%20automatiseringsadvies`}>{siteConfig.email}</a></p>
 
       <div className="submit-row">
         <button className="button button-lime submit-button" type="submit" disabled={status === "submitting"}>

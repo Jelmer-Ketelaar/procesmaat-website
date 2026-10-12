@@ -8,7 +8,7 @@ import { TrackedLink } from "./tracked-link";
 const navItems = [
   ["AI-automatisering", "/ai-automatisering"],
   ["Diensten", "/diensten"],
-  ["Investering", "/#investering"],
+  ["Kennisbank", "/kennisbank"],
   ["Werkwijze", "/#werkwijze"],
 
 ] as const;
@@ -54,7 +54,7 @@ export function SiteHeader() {
       </Link>
 
       <nav className="desktop-nav" aria-label="Hoofdnavigatie">
-        {navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+        {navItems.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
       </nav>
 
       <TrackedLink className="button button-small header-cta" href="/#scan" event="cta_click" location="header">
@@ -77,11 +77,12 @@ export function SiteHeader() {
       <div className={`mobile-nav ${menuOpen ? "is-open" : ""}`} id="mobiele-navigatie" aria-hidden={!menuOpen} inert={!menuOpen}>
         <nav aria-label="Mobiele navigatie">
           {navItems.map(([label, href], index) => (
-            <a key={href} href={href} onClick={closeMenu}>
+            <Link key={href} href={href} onClick={closeMenu}>
               <span>0{index + 1}</span>{label}
-            </a>
+            </Link>
           ))}
-          <a href="/privacy" onClick={closeMenu}><span>05</span>Privacy</a>
+          <Link href="/#investering" onClick={closeMenu}><span>05</span>Investering</Link>
+          <Link href="/privacy" onClick={closeMenu}><span>06</span>Privacy</Link>
         </nav>
       </div>
     </header>

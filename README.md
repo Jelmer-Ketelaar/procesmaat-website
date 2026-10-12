@@ -1,6 +1,6 @@
 # ProcesMaat website
 
-Nederlandstalige B2B-website voor AI-automatisering, AI-agents, maatwerksoftware en systeemkoppelingen. De primaire conversie is een aanvraag voor een gratis automatiseringsscan van 30 minuten;
+Nederlandstalige B2B-website voor AI-automatisering, AI-agents, maatwerksoftware en systeemkoppelingen. De primaire conversie is een aanvraag voor gratis digitaal automatiseringsadvies per e-mail;
 
 ## Lokaal starten
 

@@ -57,7 +57,7 @@ export default function PrivacyPage() {
             <section id="gegevens">
               <span className="privacy-number">02</span>
               <h2>Welke gegevens verwerken we?</h2>
-              <p>Als je het formulier invult, verwerken we je naam, e-mailadres, optioneel je bedrijfsnaam, je procesomschrijving, gebruikte software, gewenste resultaat, geschatte aantallen per week en de tijd die het proces kost.</p>
+              <p>Als je het formulier invult, verwerken we je naam, e-mailadres, optioneel je bedrijfsnaam, je procesomschrijving, gebruikte software, het gewenste resultaat, geschatte aantallen per week en de tijd die het proces kost.</p>
               <p>Als je via een campagnelink binnenkomt, kunnen uitsluitend de aanwezige UTM-categorieën en het landingspad met de aanvraag worden meegestuurd. We slaan hiervoor geen advertentie-identifiers, cookies of lokaal bezoekersprofiel op.</p>
               <p>De website kan daarnaast strikt noodzakelijke technische gegevens verwerken om de pagina veilig te leveren en misbruik te voorkomen. Deel in het formulier geen bijzondere of gevoelige persoonsgegevens.</p>
             </section>

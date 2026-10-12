@@ -9,7 +9,7 @@ import { TrackedLink } from "@/app/components/tracked-link";
 import { automationExamples, homeSeo, faqs, problemItems, processSteps } from "@/lib/content";
 import { knowledgeList } from "@/lib/knowledge";
 import { siteConfig } from "@/lib/site-config";
-import { graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
+import { faqPageSchema, graphSchema, organizationSchema, webPageSchema, websiteSchema } from "@/lib/structured-data";
 
 
 
@@ -20,6 +20,7 @@ export default function Home() {
         organizationSchema(),
         websiteSchema(),
         webPageSchema("/", homeSeo.title, homeSeo.description),
+        faqPageSchema(faqs),
       ])} />
       <SiteHeader />
       <main id="main-content">
@@ -145,7 +146,7 @@ export default function Home() {
 
         <section className="fit-section section-rule" aria-labelledby="fit-title">
           <div className="section-label"><span>05</span><p>Past dit?</p></div>
-          <div className="fit-heading"><h2 id="fit-title">Een goede automatisering begint bij een <em>echt proces.</em></h2><p>De digitaal advies is bedoeld om snel en eerlijk te bepalen of bouwen de moeite waard kan zijn.</p></div>
+          <div className="fit-heading"><h2 id="fit-title">Een goede automatisering begint bij een <em>echt proces.</em></h2><p>Het digitale advies is bedoeld om snel en eerlijk te bepalen of bouwen de moeite waard kan zijn.</p></div>
           <div className="fit-grid">
             <article className="fit-yes"><span className="fit-status">DIT PAST WAARSCHIJNLIJK</span><h3>Je herkent dit:</h3><ul><li><i>✓</i><span>Hetzelfde proces komt wekelijks of dagelijks terug.</span></li><li><i>✓</i><span>Meerdere collega’s of systemen zijn erbij betrokken.</span></li><li><i>✓</i><span>Je wilt tijd besparen én meer controle houden.</span></li><li><i>✓</i><span>Er is iemand die het huidige proces goed kent.</span></li></ul></article>
             <article className="fit-no"><span className="fit-status">DIT PAST WAARSCHIJNLIJK NIET</span><h3>Je zoekt vooral:</h3><ul><li><i>×</i><span>Een los softwareproject zonder terugkerend bedrijfsproces.</span></li><li><i>×</i><span>Een kant-en-klare app zonder procesonderzoek.</span></li><li><i>×</i><span>Een één-klik-AI-oplossing zonder menselijke controle.</span></li><li><i>×</i><span>Automatisering voor een eenmalige taak.</span></li></ul></article>

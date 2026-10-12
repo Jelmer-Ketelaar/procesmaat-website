@@ -250,6 +250,10 @@ h1 em, h2 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400;
 .spinner { width: 15px; height: 15px; border: 2px solid rgba(16,25,35,.25); border-top-color: var(--ink); border-radius: 50%; animation: spin .7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .form-message { margin-bottom: 24px; padding: 13px 15px; border-left: 3px solid var(--error); background: #fff0ed; color: #8c2f2f; font-size: 12px; line-height: 1.55; }
+.form-message p { margin: 0; }
+.form-message p + p { margin-top: 8px; }
+.form-message a, .form-fallback a { color: var(--blue-dark); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.form-fallback { margin: 18px 0 0; color: #4e5953; font-size: 14px; line-height: 1.55; }
 .form-success { min-height: 580px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
 .success-mark { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 38px; border-radius: 50%; background: var(--green); font-size: 22px; }
 .form-success h3 { max-width: 550px; margin-bottom: 20px; font-size: clamp(36px, 4vw, 55px); letter-spacing: -.055em; line-height: 1; }

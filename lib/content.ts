@@ -50,7 +50,7 @@ export const automationExamples = [
 ] as const;
 
 export const processSteps = [
-  { number: "01", title: "Digitaal aanvragen", text: "Je beschrijft je proces, software en gewenste resultaat. Alles begint online, zonder afspraak." },
+  { number: "01", title: "Digitaal aanvragen", text: "Je beschrijft je proces, software en het gewenste resultaat. Alles begint online, zonder afspraak." },
   { number: "02", title: "Advies per e-mail", text: "Binnen één werkdag krijg je een eerste richting. Eventuele aanvullende vragen stellen we per e-mail." },
   { number: "03", title: "Voorstel en prototype", text: "Na afbakening ontvang je een vaste projectprijs exclusief btw. Na jouw akkoord bouwen we een eerste versie die je online kunt bekijken." },
   { number: "04", title: "Opleveren & verbeteren", text: "We voeren gecontroleerd in, leggen de werking uit en verbeteren op basis van echt gebruik." },

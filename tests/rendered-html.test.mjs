@@ -104,7 +104,8 @@ test("home metadata uses one validated test origin and the actual social-card di
   assert.match(html, /AI &amp; Automatisering voor het MKB \| ProcesMaat Software/);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /"@type":"Organization"/);
-  assert.doesNotMatch(html, /"@type":"FAQPage"/);
+  assert.match(html, /"@type":"FAQPage"/);
+  assert.match(html, /"name":"Hoe werkt het digitale advies\?"/);
 });
 
 test("commercial service pages render unique search metadata, useful content and structured data", async () => {
@@ -126,8 +127,9 @@ test("commercial service pages render unique search metadata, useful content and
     assert.match(html, new RegExp(heading), path);
     assert.match(html, /"@type":"Service"/, path);
     assert.match(html, /"@type":"BreadcrumbList"/, path);
-    assert.doesNotMatch(html, /"@type":"FAQPage"/, path);
-    assert.doesNotMatch(html, /property="og:image"|name="twitter:image"/i, path);
+    assert.match(html, /"@type":"FAQPage"/, path);
+    assert.match(html, /property="og:image" content="https:\/\/procesmaat\.test\/og\.png"/i, path);
+    assert.match(html, /name="twitter:image" content="https:\/\/procesmaat\.test\/og\.png"/i, path);
     assert.match(html, /Ontvang gratis digitaal advies/, path);
   }
 });
@@ -161,7 +163,9 @@ test("knowledge hub and articles render unique metadata, article schema and prac
     assert.match(html, /"datePublished":"2026-08-25"/, path);
     assert.match(html, new RegExp(`href="${servicePath}"`), path);
     assert.match(html, /href="\/#scan"/, path);
-    assert.doesNotMatch(html, /property="og:image"|name="twitter:image"|"@type":"FAQPage"/i, path);
+    assert.match(html, /property="og:image" content="https:\/\/procesmaat\.test\/og\.png"/i, path);
+    assert.match(html, /name="twitter:image" content="https:\/\/procesmaat\.test\/og\.png"/i, path);
+    assert.doesNotMatch(html, /"@type":"FAQPage"/i, path);
   }
 });
 
@@ -226,7 +230,11 @@ test("custom 404 is useful, noindex and does not inherit the homepage canonical"
 test("every rendered editorial and commercial page has one H1 and no broken internal page links", async () => {
   const paths = [
     "/",
+    "/ai-agents",
+    "/ai-automatisering",
+    "/crm-boekhouding-koppelen",
     "/diensten",
+    "/factuur-documentverwerking",
     "/procesautomatisering",
     "/maatwerksoftware",
     "/systeemkoppelingen",
@@ -255,6 +263,40 @@ test("every rendered editorial and commercial page has one H1 and no broken inte
   for (const path of linkedPaths) {
     const response = await request(path);
     assert.ok(response.status < 400, `${path} returned ${response.status}`);
+  }
+});
+
+test("every internal fragment link points to an existing section", async () => {
+  const paths = [
+    "/",
+    "/ai-agents",
+    "/ai-automatisering",
+    "/crm-boekhouding-koppelen",
+    "/diensten",
+    "/factuur-documentverwerking",
+    "/procesautomatisering",
+    "/maatwerksoftware",
+    "/systeemkoppelingen",
+    "/kennisbank",
+    "/kennisbank/bedrijfsprocessen-automatiseren",
+    "/kennisbank/welk-proces-automatiseren",
+    "/kennisbank/maatwerksoftware-of-standaardpakket",
+    "/kennisbank/api-koppeling-checklist",
+    "/privacy",
+  ];
+  const pageCache = new Map();
+
+  for (const path of paths) {
+    const html = await (await request(path)).text();
+    pageCache.set(path, html);
+    for (const match of html.matchAll(/<a\b[^>]*\bhref="([^"]*#[^"]+)"/gi)) {
+      const url = new URL(match[1], `https://procesmaat.test${path}`);
+      if (url.origin !== "https://procesmaat.test" || !url.hash) continue;
+      const targetHtml = pageCache.get(url.pathname) ?? await (await request(url.pathname)).text();
+      pageCache.set(url.pathname, targetHtml);
+      const id = decodeURIComponent(url.hash.slice(1)).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      assert.match(targetHtml, new RegExp(`\\bid="${id}"`), `${path} -> ${match[1]}`);
+    }
   }
 });
 

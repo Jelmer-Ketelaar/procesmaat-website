@@ -43,7 +43,6 @@ export function serviceMetadata(service: ServicePageContent): Metadata {
     title: service.metaTitle,
     description: service.metaDescription,
     path: `/${service.slug}`,
-    socialPreview: false,
   });
 }
 
@@ -53,7 +52,6 @@ export function knowledgeMetadata(article: KnowledgeArticle): Metadata {
     title: article.metaTitle,
     description: article.metaDescription,
     path,
-    socialPreview: false,
   });
 
   return {
@@ -63,7 +61,6 @@ export function knowledgeMetadata(article: KnowledgeArticle): Metadata {
       type: "article",
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
-      images: [],
     },
   };
 }

@@ -97,6 +97,20 @@ export function breadcrumbSchema(items: readonly { name: string; path: string }[
   };
 }
 
+export function faqPageSchema(items: readonly { question: string; answer: string }[]) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
 export function graphSchema(items: Array<Record<string, unknown>>) {
   return { "@context": "https://schema.org", "@graph": items };
 }

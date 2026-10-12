@@ -5,6 +5,7 @@ import { SiteHeader } from "@/app/components/site-header";
 import { serviceList, type ServicePageContent } from "@/lib/services";
 import {
   breadcrumbSchema,
+  faqPageSchema,
   graphSchema,
   organizationSchema,
   serviceSchema,
@@ -23,6 +24,7 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
         websiteSchema(),
         webPageSchema(path, service.metaTitle, service.metaDescription),
         serviceSchema(service),
+        faqPageSchema(service.faq),
         breadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "Diensten", path: "/diensten" },
@@ -120,7 +122,7 @@ export function ServicePage({ service }: { service: ServicePageContent }) {
             <div>
               <p className="eyebrow light"><span /> Gratis digitaal automatiseringsadvies</p>
               <h2 id="service-cta-title">Begin met één terugkerend proces.</h2>
-              <p>Beschrijf je proces, gebruikte software en gewenste resultaat. Binnen één werkdag ontvang je een eerste advies per e-mail. Helemaal online, zonder afspraak.</p>
+              <p>Beschrijf je proces, gebruikte software en het gewenste resultaat. Binnen één werkdag ontvang je een eerste advies per e-mail. Helemaal online, zonder afspraak.</p>
             </div>
             <Link className="button button-lime" href="/#scan">Ontvang gratis digitaal advies <span aria-hidden="true">↗</span></Link>
           </section>
